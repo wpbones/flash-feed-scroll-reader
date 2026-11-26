@@ -1,0 +1,13 @@
+node_modules/
+resources/assets/vendor/
+storage/
+vendor/
+.cache/
+.php-cs-fixer.cache
+
+# Announcement post (local only)
+POST.md
+
+# PHPUnit
+.phpunit.cache/
+.phpunit.result.cache

@@ -1,0 +1,53 @@
+{
+  "name": "gfazioli/flash-feed-scroll-reader",
+  "type": "wordpress-plugin",
+  "description": "A horizontal scrolling ticker of items from one or more RSS/Atom feeds. Plain HTML and CSS, no Flash.",
+  "keywords": [
+    "wordpress",
+    "rss",
+    "feed",
+    "ticker"
+  ],
+  "homepage": "https://wordpress.org/plugins/flash-feed-scroll-reader/",
+  "license": "GPL-2.0-or-later",
+  "authors": [
+    {
+      "name": "Giovambattista Fazioli",
+      "email": "giovambattista.fazioli@gmail.com",
+      "homepage": "http://undolog.com"
+    }
+  ],
+  "support": {
+    "issues": "https://wordpress.org/support/plugin/flash-feed-scroll-reader/",
+    "source": "https://wordpress.org/plugins/flash-feed-scroll-reader/"
+  },
+  "require": {
+    "php": ">=8.1",
+    "wpbones/wpbones": "^3.4.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "NSFeedScrollReaderPlugin\\": "plugin/"
+    },
+    "files": [
+      "functions.php"
+    ]
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "php -r \"copy('vendor/wpbones/wpbones/src/Console/bin/bones', 'bones');\"",
+      "php bones rename --update"
+    ],
+    "test": "phpunit",
+    "make-pot": "wp i18n make-pot . languages/flash-feed-scroll-reader.pot --slug=flash-feed-scroll-reader --domain=flash-feed-scroll-reader --exclude=vendor,tests,node_modules,bootstrap,config,database,storage,assets"
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "NSFeedScrollReaderPlugin\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5 || ^11.0",
+    "brain/monkey": "^2.7"
+  }
+}

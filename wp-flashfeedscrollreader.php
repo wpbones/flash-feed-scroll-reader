@@ -1,38 +1,35 @@
 <?php
-/*
-Plugin Name: Flash Feed Scroll Reader
-Plugin URI: http://wordpress.org/extend/plugins/flash-feed-scroll-reader/
-Description: Feed Scroll Reader is a Flash Feed Reader with horizontal scrolling.
-Version: 1.2.0
-Author: Giovambattista Fazioli
-Author URI: http://www.saidmade.com/
-Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
- 
-	Copyright 2010 Saidmade Srl (email : g.fazioli@saidmade.com)
 
-	This program is free software; you can redistribute it and/or modify
-	it under the terms of the GNU General Public License as published by
-	the Free Software Foundation; either version 2 of the License, or
-	(at your option) any later version.
-	
-	This program is distributed in the hope that it will be useful,
-	but WITHOUT ANY WARRANTY; without even the implied warranty of
-	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-	GNU General Public License for more details.
-	
-	You should have received a copy of the GNU General Public License
-	along with this program; if not, write to the Free Software
-	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
-require_once( 'wp-ffsr_class.php');
+/**
+ * Plugin Name: Feed Scroll Reader
+ * Plugin URI: https://wordpress.org/plugins/flash-feed-scroll-reader/
+ * Description: A horizontal scrolling ticker of items from one or more RSS/Atom feeds. Plain HTML and CSS, no Flash. Formerly Flash Feed Scroll Reader.
+ * Version: 2.0.0
+ * Requires at least: 6.6
+ * Requires PHP: 8.1
+ * Author: Giovambattista Fazioli
+ * Author URI: http://undolog.com
+ * License: GPL-2.0-or-later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: flash-feed-scroll-reader
+ * Domain Path: languages
+ *
+ */
 
-if( is_admin() ) {
-	require_once( 'wp-ffsr_admin.php' );
-	$wp_ffsr_admin = new WPFFSR_ADMIN();
-	$wp_ffsr_admin->register_plugin_settings( __FILE__ );
-} else {
-	require_once( 'wp-ffsr_frontend.php');
-	$wp_ffsr_frontend = new WPFFSR_FRONTEND();
-	require_once( 'wp-ffsr_functions.php');
+if (!defined('ABSPATH')) {
+  exit();
 }
-?>
+
+/*
+|--------------------------------------------------------------------------
+| Register The Auto Loader
+|--------------------------------------------------------------------------
+|
+| Composer provides a convenient, automatically generated class loader for
+| our application. We just need to utilize it! We'll simply require it
+| into the script here so that we don't have to worry about manual
+| loading any of our classes later on. It feels nice to relax.
+|
+*/
+
+require_once __DIR__ . '/bootstrap/autoload.php';
