@@ -181,6 +181,22 @@ final class ArgsTest extends TestCase
     $this->assertSame(['javascript:alert(1)', 'ftp://a.test/feed', 'file:///etc/passwd', 'not', 'a', 'url', 'http://'], Args::rejectedFeeds($value));
   }
 
+  public function test_a_ticker_reads_at_most_five_feeds(): void
+  {
+    $urls = array_map(fn($i) => "https://f$i.test/feed", range(1, 50));
+
+    $this->assertCount(5, Args::feeds($urls));
+    $this->assertSame(['https://f1.test/feed', 'https://f2.test/feed', 'https://f3.test/feed', 'https://f4.test/feed', 'https://f5.test/feed'], Args::feeds(implode("\n", $urls)));
+    $this->assertCount(5, Args::normalize(['feeds' => implode(' ', $urls)], self::DEFAULTS)['feeds']);
+  }
+
+  public function test_the_cap_counts_valid_feeds_not_lines(): void
+  {
+    $value = "nope\njavascript:x\n" . implode("\n", array_map(fn($i) => "https://f$i.test/feed", range(1, 8)));
+
+    $this->assertSame('https://f5.test/feed', Args::feeds($value)[4]);
+  }
+
   public function test_feeds_take_an_array_too(): void
   {
     $this->assertSame(['https://a.test/f'], Args::feeds(['https://a.test/f', 'https://a.test/f', 12, '']));

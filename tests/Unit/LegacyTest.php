@@ -152,7 +152,7 @@ final class LegacyTest extends TestCase
     $this->assertSame('#ffffff', $new['bgcolor']);
     $this->assertSame('_blank', $new['target']);
     $this->assertArrayNotHasKey('max_items', $new, 'the per-feed limit only counts with the aggregator');
-    $this->assertSame("http://www.appleside.it/feed\nhttp://www.undolog.com/feed", $new['legacy_feeds']);
+    $this->assertSame('http://www.undolog.com/feed', $new['legacy_feeds'], 'saidmade.com and appleside.it are dead');
   }
 
   /**
@@ -193,6 +193,40 @@ final class LegacyTest extends TestCase
     $this->assertSame(5, $new['max_items'], 'the limit counts the feeds that are left');
   }
 
+  /**
+   * @return array<string, array{string}>
+   */
+  public static function deadAggregatorDefaults(): array
+  {
+    return [
+      'appleside.it' => ['http://www.appleside.it/feed'],
+      'appleside.it https, no www' => ['https://appleside.it/feed/'],
+    ];
+  }
+
+  #[DataProvider('deadAggregatorDefaults')]
+  public function test_the_other_dead_1x_default_is_dropped_too(string $url): void
+  {
+    $old = self::OLD_DEFAULTS;
+    $old['ffsr_useaggregator'] = '1';
+    $old['ffsr_aggregator'] = [$url, 'https://mine.test/feed'];
+
+    $new = Legacy::migrate($old);
+
+    $this->assertSame('https://mine.test/feed', $new['feeds']);
+
+    $old['ffsr_feedurl'] = $url;
+    $old['ffsr_useaggregator'] = '0';
+    $this->assertArrayNotHasKey('feeds', Legacy::migrate($old));
+  }
+
+  public function test_the_alive_1x_default_is_kept(): void
+  {
+    $old = ['ffsr_feedurl' => 'http://www.undolog.com/feed'];
+
+    $this->assertSame('http://www.undolog.com/feed', Legacy::migrate($old)['feeds']);
+  }
+
   public function test_other_saidmade_addresses_are_kept(): void
   {
     $old = ['ffsr_feedurl' => 'http://www.saidmade.com/feed/rss2/'];
@@ -209,10 +243,10 @@ final class LegacyTest extends TestCase
     $new = Legacy::migrate($old);
 
     $this->assertSame(
-      "http://www.appleside.it/feed\nhttp://www.undolog.com/feed",
+      'http://www.undolog.com/feed',
       $new['feeds']
     );
-    $this->assertSame(10, $new['max_items']);
+    $this->assertSame(5, $new['max_items']);
   }
 
   public function test_the_aggregator_flag_without_a_list_falls_back_to_the_single_feed(): void

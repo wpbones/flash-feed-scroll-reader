@@ -47,7 +47,7 @@ $id = static fn(string $key): string => esc_attr('ffsr-' . $key);
         <th scope="row"><label for="<?php echo $id('feeds'); ?>"><?php esc_html_e('Feed addresses', 'flash-feed-scroll-reader'); ?></label></th>
         <td>
           <textarea id="<?php echo $id('feeds'); ?>" name="<?php echo $name('feeds'); ?>" rows="4" cols="60" class="large-text code" spellcheck="false"><?php echo esc_textarea($values['feeds']); ?></textarea>
-          <p class="description"><?php esc_html_e('One RSS or Atom address per line. Several feeds are merged, newest first.', 'flash-feed-scroll-reader'); ?></p>
+          <p class="description"><?php esc_html_e('One RSS or Atom address per line, up to 5. Several feeds are merged, newest first.', 'flash-feed-scroll-reader'); ?></p>
         </td>
       </tr>
       <tr>

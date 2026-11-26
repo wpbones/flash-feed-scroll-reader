@@ -91,6 +91,15 @@ final class SettingsTest extends TestCase
     $this->assertSame(['javascript:alert(1)'], $result['rejected']);
   }
 
+  public function test_a_form_with_more_than_five_feeds_saves_five(): void
+  {
+    $lines = implode("\n", array_map(fn($i) => "https://f$i.test/feed", range(1, 9)));
+
+    $result = Settings::sanitize(['feeds' => $lines], $this->defaults, $this->defaults);
+
+    $this->assertCount(5, explode("\n", $result['values']['feeds']));
+  }
+
   public function test_clearing_the_feed_list_keeps_it_empty(): void
   {
     $result = Settings::sanitize(['feeds' => ''], $this->defaults, $this->defaults);

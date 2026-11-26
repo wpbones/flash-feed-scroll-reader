@@ -15,10 +15,28 @@ use PHPUnit\Framework\TestCase;
  */
 abstract class MonkeyTestCase extends TestCase
 {
+  /** The transients, in memory: name => value. */
+  protected \ArrayObject $transients;
+
+  /** The lifetime each transient was set with: name => seconds. */
+  protected \ArrayObject $transientTtl;
+
   protected function setUp(): void
   {
     parent::setUp();
     Monkey\setUp();
+
+    $this->transients = new \ArrayObject();
+    $this->transientTtl = new \ArrayObject();
+    $transients = $this->transients;
+    $ttl = $this->transientTtl;
+    Functions\when('get_transient')->alias(fn($name) => $transients[$name] ?? false);
+    Functions\when('set_transient')->alias(function ($name, $value, $seconds = 0) use ($transients, $ttl) {
+      $transients[$name] = $value;
+      $ttl[$name] = $seconds;
+
+      return true;
+    });
 
     Functions\when('esc_html')->alias(fn($v) => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'));
     Functions\when('esc_attr')->alias(fn($v) => htmlspecialchars((string) $v, ENT_QUOTES, 'UTF-8'));

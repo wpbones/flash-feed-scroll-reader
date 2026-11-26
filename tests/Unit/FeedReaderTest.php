@@ -167,6 +167,53 @@ final class FeedReaderTest extends MonkeyTestCase
     }
   }
 
+  public function test_a_failed_feed_is_remembered_and_not_fetched_again(): void
+  {
+    Functions\when('add_filter')->justReturn(true);
+    Functions\when('remove_filter')->justReturn(true);
+    $fetched = new \ArrayObject();
+    Functions\when('fetch_feed')->alias(function (string $url) use ($fetched) {
+      $fetched[] = $url;
+
+      return new WP_Error('x', 'cURL error 28: timed out');
+    });
+
+    $first = FeedReader::read(['https://dead.test/f'], 5, 600);
+    $second = FeedReader::read(['https://dead.test/f'], 5, 600);
+
+    $this->assertSame(['https://dead.test/f'], $fetched->getArrayCopy(), 'the second render did not wait for the dead host');
+    $this->assertSame(['https://dead.test/f: cURL error 28: timed out'], $first['errors']);
+    $this->assertCount(1, $second['errors']);
+    $this->assertStringContainsString('cURL error 28: timed out', $second['errors'][0]);
+    $this->assertStringContainsString('not tried again', $second['errors'][0], 'the administrator is told why');
+    $key = FeedReader::FAILURE_PREFIX . md5('https://dead.test/f');
+    $this->assertSame(15 * 60, $this->transientTtl[$key], 'for fifteen minutes');
+  }
+
+  public function test_a_working_feed_leaves_no_mark(): void
+  {
+    Functions\when('add_filter')->justReturn(true);
+    Functions\when('remove_filter')->justReturn(true);
+    Functions\when('fetch_feed')->alias(fn() => self::feed([]));
+
+    FeedReader::read(['https://ok.test/f'], 5, 600);
+
+    $this->assertCount(0, $this->transients);
+  }
+
+  public function test_a_mark_on_one_feed_does_not_stop_the_others(): void
+  {
+    Functions\when('add_filter')->justReturn(true);
+    Functions\when('remove_filter')->justReturn(true);
+    $this->transients[FeedReader::FAILURE_PREFIX . md5('https://dead.test/f')] = 'boom';
+    Functions\when('fetch_feed')->alias(fn() => self::feed([self::simplePieItem('Up', 'https://up.test/1', '', '5')]));
+
+    $result = FeedReader::read(['https://dead.test/f', 'https://up.test/f'], 5, 600);
+
+    $this->assertSame(['Up'], array_column($result['items'], 'title'));
+    $this->assertSame(['https://dead.test/f: boom'], $result['errors']);
+  }
+
   public function test_the_limit_is_asked_of_each_feed(): void
   {
     Functions\when('add_filter')->justReturn(true);

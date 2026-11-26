@@ -18,6 +18,12 @@ final class Args
   public const TARGETS = ['_blank', '_self'];
 
   /**
+   * Feeds per ticker. Each one is fetched in turn, over the network, while the page is built: a
+   * contributor's shortcode with fifty dead addresses would otherwise hold every uncached render.
+   */
+  public const MAX_FEEDS = 5;
+
+  /**
    * Keys where an empty value is a real choice (no separator, no suffix, transparent, inherited
    * color) and so must not fall back to the default.
    */
@@ -67,7 +73,7 @@ final class Args
 
   /**
    * One URL per entry. Takes an array, or a string split on new lines, commas and spaces; keeps the
-   * http(s) ones, once each.
+   * http(s) ones, once each, the first MAX_FEEDS of them.
    *
    * @param string|array $value
    *
@@ -93,7 +99,7 @@ final class Args
       }
     }
 
-    return array_values($urls);
+    return array_slice(array_values($urls), 0, self::MAX_FEEDS);
   }
 
   /**

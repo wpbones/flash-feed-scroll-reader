@@ -17,10 +17,12 @@ final class Legacy
   public const OPTION = 'ffsr_settings';
 
   /**
-   * The feed 1.x shipped as its default, on a domain that is gone: http or https, with or without
-   * www and a trailing slash.
+   * The feeds 1.x shipped as its defaults (the single feed and the aggregator list) that no longer
+   * answer: http or https, with or without www and a trailing slash. Checked on 2026-11-26:
+   * saidmade.com/feed answers with an HTML page, not a feed, and appleside.it does not resolve.
+   * undolog.com/feed is alive and stays.
    */
-  private const DEAD_DEFAULT_FEED = '#^https?://(?:www\.)?saidmade\.com/feed/?$#i';
+  private const DEAD_DEFAULT_FEED = '#^https?://(?:www\.)?(?:saidmade\.com|appleside\.it)/feed/?$#i';
 
   /**
    * Arguments of the 1.x tag that only made sense for the Flash movie: they are accepted and

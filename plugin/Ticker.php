@@ -66,6 +66,8 @@ final class Ticker
       $args['label'] = __('Latest items', 'flash-feed-scroll-reader');
     }
 
+    $args['pause_label'] = __('Pause scrolling', 'flash-feed-scroll-reader');
+
     Plugin::enqueueFrontEnd();
 
     return ['html' => TickerHtml::render($args, $result['items'], ++self::$count), 'messages' => $messages];

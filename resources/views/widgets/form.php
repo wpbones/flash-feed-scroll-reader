@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
          value="<?php echo esc_attr($instance['title']); ?>">
 </p>
 <p>
-  <label for="<?php echo esc_attr($widget->get_field_id('feeds')); ?>"><?php esc_html_e('Feed URLs, one per line:', 'flash-feed-scroll-reader'); ?></label>
+  <label for="<?php echo esc_attr($widget->get_field_id('feeds')); ?>"><?php esc_html_e('Feed URLs, one per line (up to 5):', 'flash-feed-scroll-reader'); ?></label>
   <textarea class="widefat" rows="3"
             id="<?php echo esc_attr($widget->get_field_id('feeds')); ?>"
             name="<?php echo esc_attr($widget->get_field_name('feeds')); ?>"><?php echo esc_textarea($instance['feeds']); ?></textarea>
