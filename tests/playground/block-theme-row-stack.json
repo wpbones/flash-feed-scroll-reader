@@ -1,0 +1,42 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "preferredVersions": {
+    "php": "8.2",
+    "wp": "latest"
+  },
+  "features": {
+    "networking": true
+  },
+  "landingPage": "/ticker-layouts/",
+  "steps": [
+    {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "wordpress.org/plugins",
+        "slug": "flash-feed-scroll-reader"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "setSiteOptions",
+      "options": {
+        "permalink_structure": "/%postname%/"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n$id = wp_insert_post(['post_type' => 'page', 'post_name' => 'ticker-layouts', 'post_title' => 'Ticker in a Row, a Stack and a constrained Group', 'post_status' => 'publish', 'post_content' => '<!-- wp:heading --><h2 class=\"wp-block-heading\">Row (group, flex, no wrap): the ticker fills the row beside the paragraph</h2><!-- /wp:heading -->\n<!-- wp:group {\"layout\":{\"type\":\"flex\",\"flexWrap\":\"nowrap\"}} --><div class=\"wp-block-group\"><!-- wp:paragraph --><p>Latest news:</p><!-- /wp:paragraph --><!-- wp:flash-feed-scroll-reader/ticker {\"feeds\":\"https://wordpress.org/news/feed/\",\"maxItems\":6} /--></div><!-- /wp:group -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">Stack (group, flex column, items to the left): the ticker fills the column</h2><!-- /wp:heading -->\n<!-- wp:group {\"layout\":{\"type\":\"flex\",\"orientation\":\"vertical\",\"justifyContent\":\"left\"}} --><div class=\"wp-block-group\"><!-- wp:paragraph --><p>Latest news:</p><!-- /wp:paragraph --><!-- wp:flash-feed-scroll-reader/ticker {\"feeds\":\"https://wordpress.org/news/feed/\",\"maxItems\":6} /--></div><!-- /wp:group -->\n<!-- wp:heading --><h2 class=\"wp-block-heading\">Group with a constrained layout: unchanged</h2><!-- /wp:heading -->\n<!-- wp:group {\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group\"><!-- wp:paragraph --><p>Latest news:</p><!-- /wp:paragraph --><!-- wp:flash-feed-scroll-reader/ticker {\"feeds\":\"https://wordpress.org/news/feed/\",\"maxItems\":6} /--></div><!-- /wp:group -->']);\nflush_rewrite_rules();\n"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n// The editors open without their welcome guides.\nglobal $wpdb;\nupdate_user_meta(1, $wpdb->get_blog_prefix() . 'persisted_preferences', [\n  'core/edit-post' => ['welcomeGuide' => false],\n  'core/edit-site' => ['welcomeGuide' => false, 'welcomeGuideStyles' => false, 'welcomeGuidePage' => false, 'welcomeGuideTemplate' => false],\n  'core/edit-widgets' => ['welcomeGuide' => false],\n  'core/customize-widgets' => ['welcomeGuide' => false],\n  '_modified' => gmdate('c'),\n]);\n"
+    }
+  ]
+}

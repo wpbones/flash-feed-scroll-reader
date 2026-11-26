@@ -286,6 +286,9 @@ PY
 c=$(rest "$T/br-bad.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[maxItems]=abc"); [ "$c" = 400 ] && ok "block-renderer: an attribute of the wrong type is a 400" || bad "wrong type: $c"
 c=$(rest "$T/br-down.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[feeds]=https://down.test/editor.xml")
 has "$T/br-down.json" '<p>https:\/\/down.test\/editor.xml: WP HTTP Error' "administrator in the editor: a dead feed is explained in a paragraph (JSON-escaped)"
+c=$(rest "$T/pg.json" "$admin" "$admin_nonce" "/wp/v2/pages" --data-urlencode "slug=block")
+has "$T/pg.json" 'wp-block-flash-feed-scroll-reader-ticker' "a page's content over REST (headless, load-more) keeps the block wrapper: only the block-renderer route is the editor"
+lacks "$T/pg.json" '<p>https:\/\/' "…and no feed-error paragraph in it"
 c=$(rest "$T/br-sub.json" "$sub" "$sub_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit"); [ "$c" = 403 ] && ok "block-renderer as a subscriber: 403" || bad "block-renderer as a subscriber: $c"
 
 # the front end

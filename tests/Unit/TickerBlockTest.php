@@ -251,4 +251,38 @@ final class TickerBlockTest extends MonkeyTestCase
     $this->assertStringNotContainsString('migrated', $script, 'only what the editor shows');
     $this->assertStringNotContainsString('legacy_feeds', $script);
   }
+
+  public static function routes(): array
+  {
+    return [
+      'the editor preview' => ['/wp/v2/block-renderer/flash-feed-scroll-reader/ticker', true],
+      'without the leading slash' => ['wp/v2/block-renderer/flash-feed-scroll-reader/ticker', true],
+      'a post list' => ['/wp/v2/posts', false],
+      'a single post' => ['/wp/v2/posts/5', false],
+      'no route' => ['', false],
+    ];
+  }
+
+  #[\PHPUnit\Framework\Attributes\DataProvider('routes')]
+  public function test_only_the_block_renderer_route_is_the_editor_preview(string $route, bool $editor): void
+  {
+    $this->assertSame($editor, TickerBlock::isEditorRoute($route));
+  }
+
+  public function test_a_rest_request_for_a_posts_content_is_not_the_editor(): void
+  {
+    $this->stubFeeds();
+    Functions\when('wp_is_serving_rest_request')->justReturn(true);
+    Functions\when('get_block_wrapper_attributes')->justReturn('class="wp-block-flash-feed-scroll-reader-ticker"');
+
+    $GLOBALS['wp'] = (object) ['query_vars' => ['rest_route' => '/wp/v2/posts/7']];
+    $this->assertFalse(TickerBlock::isEditorPreview());
+    $this->assertStringStartsWith('<div class="wp-block-flash-feed-scroll-reader-ticker">', TickerBlock::markup([], $this->defaults, TickerBlock::isEditorPreview()));
+
+    $GLOBALS['wp'] = (object) ['query_vars' => ['rest_route' => '/wp/v2/block-renderer/flash-feed-scroll-reader/ticker']];
+    $this->assertTrue(TickerBlock::isEditorPreview());
+    $this->assertStringStartsWith('<div id="ffsr-', TickerBlock::markup([], $this->defaults, TickerBlock::isEditorPreview()));
+
+    unset($GLOBALS['wp']);
+  }
 }

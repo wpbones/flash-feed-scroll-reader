@@ -193,6 +193,16 @@
   margin: 0;
 }
 
+/* In a flex parent (a Row, or a Stack with align-items: flex-start) the wrapper is a flex item sized
+   by its content, and the ticker contributes no width (contain: inline-size above): the block would
+   be 0 px wide. The wrapper asks for a share of the row (flex), fills the column (align-self), and may
+   shrink (min-width). On the wrapper only: .ffsr keeps the width the shortcode's --ffsr-width gives it. */
+.wp-block-flash-feed-scroll-reader-ticker {
+  flex: 1 1 12em;
+  align-self: stretch;
+  min-width: 0;
+}
+
 /* Reduced motion: no animation, the items are a plain wrapping list. */
 @media (prefers-reduced-motion: reduce) {
   .ffsr {

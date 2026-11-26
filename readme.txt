@@ -123,6 +123,8 @@ Yes! Please report bugs at [the support forum](https://wordpress.org/support/plu
 ### 2.1.1
 
 * Translations load through WP Bones 3.4.1, which reads the plugin's `Text Domain` and `Domain Path`. The `Domain Path` header now has the leading slash WordPress documents. A string missing from a language pack is still taken from the catalogue bundled with the plugin.
+* Fix: the block no longer shows 0 px wide in a Row or a Stack (a flex group); it takes a share of the row, or the width of the column.
+* Fix: only the block editor's preview is treated as the editor. A post's `content.rendered` over REST (headless sites, load-more scripts) keeps the block's wrapper (colors, alignment, margin) and no longer carries the feed-error paragraph an administrator sees in the editor.
 
 ### 2.1.0
 

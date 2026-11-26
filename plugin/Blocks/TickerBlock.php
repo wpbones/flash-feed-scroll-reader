@@ -110,7 +110,32 @@ class TickerBlock extends ServiceProvider
    */
   public static function render(array $attributes = []): string
   {
-    return self::markup($attributes, Plugin::options(), wp_is_serving_rest_request());
+    return self::markup($attributes, Plugin::options(), self::isEditorPreview());
+  }
+
+  /**
+   * Whether this is the block editor's preview request (ServerSideRender asks the `block-renderer`
+   * route), and not any REST request: a post's `content.rendered`, for a headless front end or a
+   * load-more script, is front-end content and needs the wrapper (colors, alignment, margin) and no
+   * administrator's error paragraph.
+   */
+  public static function isEditorPreview(): bool
+  {
+    if (!wp_is_serving_rest_request()) {
+      return false;
+    }
+
+    $route = $GLOBALS['wp']->query_vars['rest_route'] ?? ($_GET['rest_route'] ?? '');
+
+    return self::isEditorRoute(is_string($route) ? $route : '');
+  }
+
+  /**
+   * @param string $route A REST route, as `rest_route` holds it: `/wp/v2/block-renderer/<block>`.
+   */
+  public static function isEditorRoute(string $route): bool
+  {
+    return str_starts_with(ltrim($route, '/'), 'wp/v2/block-renderer/');
   }
 
   /**
