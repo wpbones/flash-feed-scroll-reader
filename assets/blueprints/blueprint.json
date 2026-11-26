@@ -1,5 +1,5 @@
 {
-  "landingPage": "/wp-admin/options-general.php?page=feed-scroll-reader",
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
   "preferredVersions": {
     "php": "8.2",
     "wp": "latest"
@@ -7,10 +7,16 @@
   "features": {
     "networking": true
   },
+  "landingPage": "/latest-news/",
   "steps": [
     {
+      "step": "login",
+      "username": "admin",
+      "password": "password"
+    },
+    {
       "step": "installPlugin",
-      "pluginZipFile": {
+      "pluginData": {
         "resource": "wordpress.org/plugins",
         "slug": "flash-feed-scroll-reader"
       },
@@ -19,9 +25,14 @@
       }
     },
     {
-      "step": "login",
-      "username": "admin",
-      "password": "password"
+      "step": "setSiteOptions",
+      "options": {
+        "permalink_structure": "/%postname%/"
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n$content = '<!-- wp:paragraph --><p>The latest from WordPress, scrolling by. Hover the ticker, or focus a link, and it stops; the button at its end pauses it on touch screens.</p><!-- /wp:paragraph -->'\n  . \"\\n<!-- wp:shortcode -->[feed_scroll_reader]<!-- /wp:shortcode -->\\n\"\n  . '<!-- wp:paragraph --><p>Two feeds merged by date, with their summaries, on a dark strip:</p><!-- /wp:paragraph -->'\n  . \"\\n<!-- wp:shortcode -->[feed_scroll_reader feed=\\\"https://wordpress.org/news/feed/ https://make.wordpress.org/core/feed/\\\" description=\\\"yes\\\" description_length=\\\"90\\\" height=\\\"3.5em\\\" bgcolor=\\\"#1e1e1e\\\" color=\\\"#ffffff\\\" max_items=\\\"12\\\"]<!-- /wp:shortcode -->\\n\"\n  . '<!-- wp:paragraph --><p>Change the defaults in Settings &gt; Feed Scroll Reader, or edit this page: each ticker is a Shortcode block.</p><!-- /wp:paragraph -->';\n$id = wp_insert_post(['post_type' => 'page', 'post_title' => 'Latest news', 'post_name' => 'latest-news', 'post_content' => $content, 'post_status' => 'publish']);\nflush_rewrite_rules();\n"
     }
   ]
 }
