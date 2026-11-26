@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T08:36:26+00:00\n"
+"POT-Creation-Date: 2026-11-26T08:57:42+00:00\n"
 "PO-Revision-Date: 2026-11-26 09:00+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: flash-feed-scroll-reader\n"
@@ -70,6 +70,10 @@ msgstr "I feed non hanno restituito elementi."
 msgid "Latest items"
 msgstr "Ultimi elementi"
 
+#: plugin/Ticker.php:69
+msgid "Pause scrolling"
+msgstr "Metti in pausa lo scorrimento"
+
 #: plugin/Widgets/TickerWidget.php:40
 msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds."
 msgstr "Un ticker a scorrimento orizzontale con gli elementi di uno o più feed RSS/Atom."
@@ -95,8 +99,8 @@ msgid "Feed addresses"
 msgstr "Indirizzi dei feed"
 
 #: resources/views/settings/index.php:50
-msgid "One RSS or Atom address per line. Several feeds are merged, newest first."
-msgstr "Un indirizzo RSS o Atom per riga. Più feed vengono uniti, dal più recente."
+msgid "One RSS or Atom address per line, up to 5. Several feeds are merged, newest first."
+msgstr "Un indirizzo RSS o Atom per riga, fino a 5. Più feed vengono uniti, dal più recente."
 
 #: resources/views/settings/index.php:54
 msgid "Items"
@@ -259,8 +263,8 @@ msgid "Title:"
 msgstr "Titolo:"
 
 #: resources/views/widgets/form.php:22
-msgid "Feed URLs, one per line:"
-msgstr "Indirizzi dei feed, uno per riga:"
+msgid "Feed URLs, one per line (up to 5):"
+msgstr "Indirizzi dei feed, uno per riga (fino a 5):"
 
 #: resources/views/widgets/form.php:26
 msgid "Empty: the feeds of Settings > Feed Scroll Reader."
