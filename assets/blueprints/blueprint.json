@@ -33,6 +33,10 @@
     {
       "step": "runPHP",
       "code": "<?php\nrequire '/wordpress/wp-load.php';\n$content = '<!-- wp:paragraph --><p>The latest from WordPress, scrolling by. Hover the ticker, or focus a link, and it stops; the button at its end pauses it on touch screens.</p><!-- /wp:paragraph -->'\n  . \"\\n<!-- wp:shortcode -->[feed_scroll_reader]<!-- /wp:shortcode -->\\n\"\n  . '<!-- wp:paragraph --><p>Two feeds merged by date, with their summaries, on a dark strip:</p><!-- /wp:paragraph -->'\n  . \"\\n<!-- wp:shortcode -->[feed_scroll_reader feed=\\\"https://wordpress.org/news/feed/ https://make.wordpress.org/core/feed/\\\" description=\\\"yes\\\" description_length=\\\"90\\\" height=\\\"3.5em\\\" bgcolor=\\\"#1e1e1e\\\" color=\\\"#ffffff\\\" max_items=\\\"12\\\"]<!-- /wp:shortcode -->\\n\"\n  . '<!-- wp:paragraph --><p>Change the defaults in Settings &gt; Feed Scroll Reader, or edit this page: each ticker is a Shortcode block.</p><!-- /wp:paragraph -->';\n$id = wp_insert_post(['post_type' => 'page', 'post_title' => 'Latest news', 'post_name' => 'latest-news', 'post_content' => $content, 'post_status' => 'publish']);\nflush_rewrite_rules();\n"
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire '/wordpress/wp-load.php';\n// The editors open without their welcome guides.\nglobal $wpdb;\nupdate_user_meta(1, $wpdb->get_blog_prefix() . 'persisted_preferences', [\n  'core/edit-post' => ['welcomeGuide' => false],\n  'core/edit-site' => ['welcomeGuide' => false, 'welcomeGuideStyles' => false, 'welcomeGuidePage' => false, 'welcomeGuideTemplate' => false],\n  'core/edit-widgets' => ['welcomeGuide' => false],\n  'core/customize-widgets' => ['welcomeGuide' => false],\n  '_modified' => gmdate('c'),\n]);\n"
     }
   ]
 }
