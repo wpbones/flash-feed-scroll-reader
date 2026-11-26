@@ -1,0 +1,131 @@
+/**
+ * Feed Scroll Reader: a horizontal ticker, in CSS.
+ *
+ * The track starts one viewport to the right (padding-left: 100%) and moves left by its own width,
+ * so it enters, crosses and leaves. The script only measures it to set --ffsr-duration; without
+ * the script the duration printed by the server is used.
+ *
+ * Look: --ffsr-width, --ffsr-height, --ffsr-bg and --ffsr-fg are set per ticker in its style
+ * attribute. The font, the link color and the size are the theme's.
+ */
+
+.ffsr {
+  --ffsr-width: 100%;
+  --ffsr-height: 2.75em;
+  --ffsr-duration: 40s;
+  --ffsr-bg: transparent;
+  --ffsr-fg: inherit;
+
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: var(--ffsr-width);
+  max-width: 100%;
+  height: var(--ffsr-height);
+  margin: 0 0 1em;
+  overflow: hidden;
+  background: var(--ffsr-bg);
+  color: var(--ffsr-fg);
+  font: inherit;
+  line-height: 1.4;
+}
+
+.ffsr *,
+.ffsr *::before,
+.ffsr *::after {
+  box-sizing: border-box;
+}
+
+.ffsr__viewport {
+  width: 100%;
+  overflow: hidden;
+}
+
+.ffsr__track {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 0 0 0 100%;
+  list-style: none;
+  white-space: nowrap;
+  animation: ffsr-scroll var(--ffsr-duration) linear infinite;
+  will-change: transform;
+}
+
+.ffsr__item {
+  display: inline-flex;
+  align-items: baseline;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ffsr__link {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+.ffsr__link:hover,
+.ffsr__link:focus-visible {
+  text-decoration-thickness: 2px;
+}
+
+.ffsr__desc {
+  margin-inline-start: 0.5em;
+  opacity: 0.85;
+}
+
+.ffsr__sep {
+  margin-inline: 1em;
+}
+
+/* The pointer is over it, or a link has the focus: stop. */
+.ffsr:hover .ffsr__track,
+.ffsr:focus-within .ffsr__track {
+  animation-play-state: paused;
+}
+
+/* Keyboard focus: the script lets the visitor scroll to the link instead (see the script). */
+.ffsr--static .ffsr__viewport {
+  overflow-x: auto;
+}
+
+.ffsr--static .ffsr__track {
+  padding-left: 0;
+  animation: none;
+}
+
+@keyframes ffsr-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Reduced motion: no animation, the items are a plain wrapping list. */
+@media (prefers-reduced-motion: reduce) {
+  .ffsr {
+    height: auto;
+    min-height: var(--ffsr-height);
+  }
+
+  .ffsr__viewport {
+    overflow: visible;
+  }
+
+  .ffsr__track {
+    flex-wrap: wrap;
+    padding-left: 0;
+    animation: none;
+    white-space: normal;
+    will-change: auto;
+  }
+
+  .ffsr__item {
+    flex-wrap: wrap;
+  }
+}
