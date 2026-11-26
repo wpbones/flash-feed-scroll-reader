@@ -24,6 +24,8 @@ class TickerWidget extends Widget
   public $widget_options = [
     'classname' => 'widget_feed_scroll_reader',
     'customize_selective_refresh' => false,
+    // The block editor's Legacy Widget block reads the instance, so a widget can become the block.
+    'show_instance_in_rest' => true,
   ];
 
   public $control_options = [

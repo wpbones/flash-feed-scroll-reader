@@ -247,6 +247,113 @@ get "$T/i18n-pack.html" - "?pagename=shortcode&ffsr_lang=es_ES" >/dev/null
 has "$T/i18n-pack.html" 'aria-label="PACK es"' "es_ES: a language pack in WP_LANG_DIR wins over the bundled catalogue"
 has "$T/i18n-pack.html" 'aria-label="Pausar el desplazamiento"' "es_ES: a string the pack lacks falls back to the bundled one"
 
+echo "== 8c. the block"
+admin_nonce=$(curl -s -b "$admin" -c "$admin" "$BASE/wp-admin/admin-ajax.php?action=rest-nonce")
+sub_nonce=$(curl -s -b "$sub" -c "$sub" "$BASE/wp-admin/admin-ajax.php?action=rest-nonce")
+rest() { # rest <out> <jar> <nonce> <route> [curl args…]: a REST route as that user (?rest_route= works with any permalink structure)
+  local out=$1 jar=$2 nonce=$3 route=$4; shift 4
+  curl -s -g -G -b "$jar" -o "$out" -w '%{http_code}' -H "X-WP-Nonce: $nonce" "$BASE/" --data-urlencode "rest_route=$route" "$@"; }
+BLOCK=flash-feed-scroll-reader/ticker
+
+c=$(rest "$T/bt.json" "$admin" "$admin_nonce" "/wp/v2/block-types/$BLOCK"); [ "$c" = 200 ] && ok "block-types/$BLOCK: 200 as an administrator" || bad "block-types: $c"
+python3 - "$T/bt.json" <<'PY' && ok "registered: api 3, widgets category, the editor script, the shared style and view script, 8 attributes" || bad "block type"
+import sys,json
+b=json.load(open(sys.argv[1]))
+assert b['name']=='flash-feed-scroll-reader/ticker' and b['api_version']==3 and b['category']=='widgets',b
+assert b['editor_script_handles']==['flash-feed-scroll-reader-ticker-editor-script'],b['editor_script_handles']
+assert b['style_handles']==['feed-scroll-reader'] and b['view_script_handles']==['feed-scroll-reader'],(b['style_handles'],b['view_script_handles'])
+for a in ['feeds','maxItems','speed','description','descriptionLength','height','target','label']: assert a in b['attributes'],a
+s=b['supports']; assert s['align']==['wide','full'] and s['color']['background'] and s['color']['text'] and s['typography']['fontSize'] and s['spacing']['margin'],s
+assert b['keywords']==['feed','rss','atom','ticker','news','marquee'],b['keywords']
+PY
+c=$(rest "$T/bt-sub.json" "$sub" "$sub_nonce" "/wp/v2/block-types/$BLOCK"); [ "$c" = 403 ] && ok "block-types as a subscriber: 403" || bad "block-types as a subscriber: $c"
+
+# the call ServerSideRender makes
+c=$(rest "$T/br.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[feeds]=https://feeds.test/a.xml" --data-urlencode "attributes[maxItems]=2" --data-urlencode "attributes[speed]=60" --data-urlencode "attributes[description]=true")
+[ "$c" = 200 ] && ok "block-renderer (context=edit): 200" || bad "block-renderer: $c"
+python3 - "$T/br.json" <<'PY' && ok "the editor's markup: the ticker itself, no block wrapper (the editor draws its own), 60 px/s, a description" || bad "block-renderer markup"
+import sys,json
+r=json.load(open(sys.argv[1]))['rendered']
+assert r.startswith('<div id="ffsr-') and 'data-speed="60"' in r and 'class="ffsr__desc"' in r,r[:300]
+assert 'wp-block-flash-feed-scroll-reader-ticker' not in r,r[:300]
+PY
+c=$(rest "$T/br-color.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[backgroundColor]=black" --data-urlencode "attributes[textColor]=white")
+python3 - "$T/br-color.json" <<'PY' && ok "the editor's markup with block colors: the ticker's own colors are unset, so the wrapper's show" || bad "block colors in the editor"
+import sys,json
+r=json.load(open(sys.argv[1]))['rendered']
+assert 'class="ffsr"' in r and '--ffsr-bg' not in r and '--ffsr-fg' not in r,r[:300]
+PY
+c=$(rest "$T/br-bad.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[maxItems]=abc"); [ "$c" = 400 ] && ok "block-renderer: an attribute of the wrong type is a 400" || bad "wrong type: $c"
+c=$(rest "$T/br-down.json" "$admin" "$admin_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit" --data-urlencode "attributes[feeds]=https://down.test/editor.xml")
+has "$T/br-down.json" '<p>https:\/\/down.test\/editor.xml: WP HTTP Error' "administrator in the editor: a dead feed is explained in a paragraph (JSON-escaped)"
+c=$(rest "$T/br-sub.json" "$sub" "$sub_nonce" "/wp/v2/block-renderer/$BLOCK" --data-urlencode "context=edit"); [ "$c" = 403 ] && ok "block-renderer as a subscriber: 403" || bad "block-renderer as a subscriber: $c"
+
+# the front end
+c=$(get "$T/b.html" - "?pagename=block"); [ "$c" = 200 ] && ok "a post with the block: 200" || bad "block page: $c"
+python3 - "$T/b.html" <<'PY' && ok "the wrapper (block class, alignment, color classes, font size) holds the ticker" || bad "wrapper"
+import sys,re
+h=open(sys.argv[1]).read()
+m=re.search(r'<div class="([^"]*wp-block-flash-feed-scroll-reader-ticker[^"]*)"[^>]*><div id="ffsr-1" class="ffsr"',h)
+assert m,'no wrapper before the ticker'
+for c in ['alignwide','has-black-background-color','has-white-color','has-background','has-text-color','has-large-font-size']: assert c in m.group(1).split(),(c,m.group(1))
+assert h.count('wp-block-flash-feed-scroll-reader-ticker')>=1 and h.count('id="ffsr-')==1
+PY
+has "$T/b.html" 'data-speed="80"' "block speed"
+has "$T/b.html" '--ffsr-height:3em;' "block height"
+[ "$(grep -o 'class="ffsr__item"' "$T/b.html" | wc -l | tr -d ' ')" = 2 ] && ok "maxItems=2 gives 2 items" || bad "item count is not 2"
+python3 - "$T/b.html" <<'PY' && ok "two feeds in the textarea's one-per-line form; description cut at 20" || bad "block feeds"
+import sys,re
+h=open(sys.argv[1]).read()
+t=re.findall(r'class="ffsr__link"[^>]*>([^<]*)<',h); assert t==['Alpha newest &amp; best','Bravo middle'],t
+assert re.findall(r'class="ffsr__desc">([^<]*)<',h)[0]=='The quick brown fox~'
+PY
+lacks "$T/b.html" '--ffsr-bg' "block colors: no ticker background over the wrapper's"
+lacks "$T/b.html" '--ffsr-fg' "block colors: no ticker text color over the wrapper's"
+[ "$(grep -o "href='[^']*public/css/feed-scroll-reader.css" "$T/b.html" | wc -l | tr -d ' ')" = 1 ] && ok "the stylesheet once" || bad "stylesheet count"
+[ "$(grep -o 'src="[^"]*public/js/feed-scroll-reader.js' "$T/b.html" | wc -l | tr -d ' ')" = 1 ] && ok "the script once (the front-end script the shortcode uses)" || bad "script count"
+c=$(get "$T/b-admin.html" "$admin" "?pagename=block"); [ "$c" = 200 ] && ok "administrator: 200" || bad "administrator: $c"
+lacks "$T/b-admin.html" 'Feed Scroll Reader:' "administrator: a working block has no comment"
+get "$T/bd.html" - "?pagename=blockdefaults" >/dev/null
+has "$T/bd.html" 'data-speed="100"' "no attribute: the saved speed"
+has "$T/bd.html" '--ffsr-bg:#abcdef;' "no block color: the saved background"
+has "$T/bd.html" 'Alpha newest' "no attribute: the saved feeds"
+get "$T/bb.html" - "?pagename=blockbad" >/dev/null
+has "$T/bb.html" 'class="ffsr"' "a hand-edited post with values of the wrong type still shows the saved feeds"
+lacks "$T/bb.html" 'to string conversion' "…without an Array to string notice in the page"
+get "$T/bm.html" - "?pagename=blockmany" >/dev/null
+n=$(grep -c 'b=' "$T/logs/fetches.txt"); [ "$n" = 5 ] && ok "8 feeds in the block: 5 were fetched" || bad "fetched $n feeds, not 5"
+get "$T/bdown-v.html" - "?pagename=blockdown" >/dev/null
+lacks "$T/bdown-v.html" 'wp-block-flash-feed-scroll-reader-ticker' "visitor: a dead feed leaves no empty wrapper"
+lacks "$T/bdown-v.html" 'block.xml' "visitor: nothing about the failure"
+get "$T/bdown-a.html" "$admin" "?pagename=blockdown" >/dev/null
+has "$T/bdown-a.html" '<!-- Feed Scroll Reader: https://down.test/block.xml: ' "administrator: the reason in an HTML comment"
+get "$T/bdown-a2.html" "$admin" "?pagename=blockdown" >/dev/null
+n=$(grep -c 'down.test/block.xml' "$T/logs/fetches.txt"); [ "$n" = 1 ] && ok "a dead feed in a block is fetched once for three requests (the failure mark)" || bad "block.xml fetched $n times"
+
+# the editor
+get "$T/ed.html" "$admin" "wp-admin/post-new.php?ffsr_lang=it_IT" >/dev/null
+hasre "$T/ed.html" 'public/blocks/ticker/index.js\?ver=2\.1\.0' "post-new.php loads the editor script"
+has "$T/ed.html" 'window.ffsrDefaults = {' "the saved defaults for the placeholders"
+has "$T/ed.html" 'feed-scroll-reader.css' "the front-end stylesheet reaches the editor's iframe"
+has "$T/ed.html" 'Indirizzi dei feed' "it_IT: the editor's strings are translated (JSON from languages/)"
+get "$T/ed-en.html" "$admin" "wp-admin/post-new.php" >/dev/null
+lacks "$T/ed-en.html" 'Indirizzi dei feed' "en_US: no translation"
+for pair in es_ES:'Direcciones de los feeds' fr_FR:'Adresses des flux' de_DE:'Feed-Adressen' pt_BR:'Endere\u00e7os dos feeds'; do
+  l=${pair%%:*}; w=${pair#*:}
+  get "$T/ed-$l.html" "$admin" "wp-admin/post-new.php?ffsr_lang=$l" >/dev/null
+  has "$T/ed-$l.html" "$w" "$l: the editor says $w (JSON-escaped where it has an accent)"
+done
+
+# the widget, readable by the Legacy Widget block, which is what lets it become the block
+c=$(curl -s -b "$admin" -o "$T/wr.json" -w '%{http_code}' -X POST -H "X-WP-Nonce: $admin_nonce" -H 'Content-Type: application/json' \
+  --data '{"id_base":"feed_scroll_reader","sidebar":"ffsr-test","instance":{"raw":{"title":"T","feeds":"https://feeds.test/a.xml","max_items":"3","speed":"","height":"","description":"1"}}}' "$BASE/?rest_route=/wp/v2/widgets")
+[ "$c" = 201 ] && ok "a widget created over REST: 201" || bad "widget REST create: $c" "$(head -c 300 "$T/wr.json")"
+python3 - "$T/wr.json" <<'PY' && ok "its instance is readable (instance.raw): the Legacy Widget block can hand it to the block" || bad "widget instance not in REST"
+import sys,json
+w=json.load(open(sys.argv[1]))
+raw=w['instance'].get('raw'); assert raw and raw['feeds']=='https://feeds.test/a.xml' and raw['max_items']=='3' and raw['title']=='T',w['instance']
+PY
+
 echo "== 9. uninstall removes every option"
 get "$T/un.txt" - "?ffsr_probe=uninstall" >/dev/null
 hasre "$T/un.txt" 'BEFORE=.*"feed_scroll_reader_slug"' "before: the settings row and ffsr_settings exist"

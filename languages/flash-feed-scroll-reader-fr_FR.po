@@ -2,14 +2,14 @@
 # This file is distributed under the GPLv2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Feed Scroll Reader 2.0.0\n"
+"Project-Id-Version: Feed Scroll Reader 2.1.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flash-feed-scroll-reader\n"
 "Last-Translator: Giovambattista Fazioli\n"
 "Language-Team: French\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-26T08:57:42+00:00\n"
+"POT-Creation-Date: 2026-11-26T12:34:56+00:00\n"
 "PO-Revision-Date: 2026-11-26 09:00+0000\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: flash-feed-scroll-reader\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: wp-flashfeedscrollreader.php
 #: plugin/Admin/SettingsPage.php:44
 #: plugin/Admin/SettingsPage.php:45
-#: plugin/Widgets/TickerWidget.php:39
+#: plugin/Widgets/TickerWidget.php:41
 #: resources/views/settings/index.php:21
 msgid "Feed Scroll Reader"
 msgstr "Feed Scroll Reader"
@@ -67,6 +67,7 @@ msgstr "Les flux n’ont renvoyé aucun élément."
 
 #: plugin/Ticker.php:66
 #: resources/views/settings/index.php:147
+#: public/blocks/ticker/index.js:209
 msgid "Latest items"
 msgstr "Derniers éléments"
 
@@ -74,7 +75,7 @@ msgstr "Derniers éléments"
 msgid "Pause scrolling"
 msgstr "Mettre le défilement en pause"
 
-#: plugin/Widgets/TickerWidget.php:40
+#: plugin/Widgets/TickerWidget.php:42
 msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds."
 msgstr "Un bandeau défilant horizontal avec les éléments d’un ou plusieurs flux RSS/Atom."
 
@@ -91,22 +92,27 @@ msgid "A horizontal scrolling ticker of the latest items of one or more feeds. T
 msgstr "Un bandeau défilant horizontal avec les derniers éléments d’un ou plusieurs flux. Ce sont les valeurs par défaut de chaque bandeau ; un shortcode, un widget ou une template tag peut en changer pour lui seul."
 
 #: resources/views/settings/index.php:44
+#: public/blocks/ticker/index.js:153
 msgid "Feeds"
 msgstr "Flux"
 
 #: resources/views/settings/index.php:47
+#: public/blocks/ticker/index.js:157
 msgid "Feed addresses"
 msgstr "Adresses des flux"
 
 #: resources/views/settings/index.php:50
+#: public/blocks/ticker/index.js:158
 msgid "One RSS or Atom address per line, up to 5. Several feeds are merged, newest first."
 msgstr "Une adresse RSS ou Atom par ligne, 5 au maximum. Plusieurs flux sont fusionnés, du plus récent au plus ancien."
 
 #: resources/views/settings/index.php:54
+#: public/blocks/ticker/index.js:165
 msgid "Items"
 msgstr "Éléments"
 
 #: resources/views/settings/index.php:57
+#: public/blocks/ticker/index.js:166
 msgid "How many items the ticker shows in all, from 1 to 100."
 msgstr "Combien d’éléments le bandeau affiche en tout, de 1 à 100."
 
@@ -135,6 +141,7 @@ msgid "A number with a unit: 100%, 480px, 30em. A number alone is pixels."
 msgstr "Un nombre avec une unité : 100%, 480px, 30em. Un nombre seul est en pixels."
 
 #: resources/views/settings/index.php:80
+#: public/blocks/ticker/index.js:185
 msgid "Height"
 msgstr "Hauteur"
 
@@ -163,10 +170,12 @@ msgid "Behavior"
 msgstr "Comportement"
 
 #: resources/views/settings/index.php:105
+#: public/blocks/ticker/index.js:179
 msgid "Speed"
 msgstr "Vitesse"
 
 #: resources/views/settings/index.php:108
+#: public/blocks/ticker/index.js:179
 msgid "pixels per second"
 msgstr "pixels par seconde"
 
@@ -183,10 +192,12 @@ msgid "Plain text between two items. Empty: none."
 msgstr "Texte simple entre deux éléments. Vide : aucun."
 
 #: resources/views/settings/index.php:120
+#: public/blocks/ticker/index.js:215
 msgid "Descriptions"
 msgstr "Descriptions"
 
 #: resources/views/settings/index.php:124
+#: public/blocks/ticker/index.js:218
 msgid "Show the description after each title"
 msgstr "Afficher la description après chaque titre"
 
@@ -203,22 +214,27 @@ msgid "Text at the end of a cut description"
 msgstr "Texte à la fin d’une description coupée"
 
 #: resources/views/settings/index.php:136
+#: public/blocks/ticker/index.js:194
 msgid "Open links"
 msgstr "Ouvrir les liens"
 
 #: resources/views/settings/index.php:139
+#: public/blocks/ticker/index.js:198
 msgid "In a new tab"
 msgstr "Dans un nouvel onglet"
 
 #: resources/views/settings/index.php:140
+#: public/blocks/ticker/index.js:199
 msgid "In the same tab"
 msgstr "Dans le même onglet"
 
 #: resources/views/settings/index.php:145
+#: public/blocks/ticker/index.js:206
 msgid "Label for screen readers"
 msgstr "Libellé pour les lecteurs d’écran"
 
 #: resources/views/settings/index.php:148
+#: public/blocks/ticker/index.js:207
 msgid "The name of the ticker for assistive technology."
 msgstr "Le nom du bandeau pour les technologies d’assistance."
 
@@ -287,6 +303,7 @@ msgid "Descriptions:"
 msgstr "Descriptions :"
 
 #: resources/views/widgets/form.php:49
+#: public/blocks/ticker/index.js:197
 msgid "Default"
 msgstr "Par défaut"
 
@@ -299,5 +316,62 @@ msgid "Hide"
 msgstr "Masquer"
 
 #: resources/views/widgets/form.php:54
+#: public/blocks/ticker/index.js:154
 msgid "Empty fields use the defaults of Settings > Feed Scroll Reader."
 msgstr "Les champs vides utilisent les valeurs par défaut de Réglages > Feed Scroll Reader."
+
+#: public/blocks/ticker/index.js:178
+msgid "Ticker"
+msgstr "Bandeau"
+
+#: public/blocks/ticker/index.js:186
+msgid "A number with a unit (40px, 3em) or auto. A number alone is pixels."
+msgstr "Un nombre avec une unité (40px, 3em) ou auto. Un nombre seul est en pixels."
+
+#: public/blocks/ticker/index.js:226
+msgid "Description length (characters)"
+msgstr "Longueur de la description (caractères)"
+
+#: public/blocks/ticker/index.js:249
+msgid "There is no ticker to show. Check the feed addresses."
+msgstr "Aucun bandeau à afficher. Vérifiez les adresses des flux."
+
+#: public/blocks/ticker/block.json
+msgctxt "block title"
+msgid "Feed Scroll Reader"
+msgstr "Feed Scroll Reader"
+
+#: public/blocks/ticker/block.json
+msgctxt "block description"
+msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds."
+msgstr "Un bandeau défilant horizontal avec les éléments d’un ou plusieurs flux RSS/Atom."
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "feed"
+msgstr "flux"
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "rss"
+msgstr "rss"
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "atom"
+msgstr "atom"
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "ticker"
+msgstr "bandeau"
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "news"
+msgstr "actualités"
+
+#: public/blocks/ticker/block.json
+msgctxt "block keyword"
+msgid "marquee"
+msgstr "défilant"

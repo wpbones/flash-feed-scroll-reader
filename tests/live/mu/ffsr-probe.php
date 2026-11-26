@@ -37,6 +37,9 @@ add_filter('the_content', function ($c) {
   return $c;
 });
 
+// A sidebar for the widgets REST check: the default theme of the Playground may have none.
+add_action('widgets_init', function () { register_sidebar(['id' => 'ffsr-test', 'name' => 'ffsr test']); });
+
 add_action('wp_loaded', function () {
   if (!isset($_GET['ffsr_probe'])) return;
   header('Content-Type: text/plain');

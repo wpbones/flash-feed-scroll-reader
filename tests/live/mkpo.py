@@ -80,6 +80,17 @@ T = {
  'Show': ('Mostra', 'Mostrar', 'Afficher', 'Anzeigen', 'Mostrar'),
  'Hide': ('Nascondi', 'Ocultar', 'Masquer', 'Ausblenden', 'Ocultar'),
  'Empty fields use the defaults': ('I campi vuoti usano i valori predefiniti di Impostazioni > Feed Scroll Reader.', 'Los campos vacíos usan los valores predeterminados de Ajustes > Feed Scroll Reader.', 'Les champs vides utilisent les valeurs par défaut de Réglages > Feed Scroll Reader.', 'Leere Felder verwenden die Standardwerte aus Einstellungen > Feed Scroll Reader.', 'Campos vazios usam os padrões de Configurações > Feed Scroll Reader.'),
+ 'Ticker': ('Ticker', 'Ticker', 'Bandeau', 'Ticker', 'Ticker'),
+ 'A number with a unit (40px': ('Un numero con unità (40px, 3em) oppure auto. Un numero da solo è in pixel.', 'Un número con unidad (40px, 3em) o auto. Un número solo son píxeles.', 'Un nombre avec une unité (40px, 3em) ou auto. Un nombre seul est en pixels.', 'Eine Zahl mit Einheit (40px, 3em) oder auto. Eine Zahl allein bedeutet Pixel.', 'Um número com unidade (40px, 3em) ou auto. Um número sozinho é em pixels.'),
+ 'Description length (characters)': ('Lunghezza della descrizione (caratteri)', 'Longitud de la descripción (caracteres)', 'Longueur de la description (caractères)', 'Länge der Beschreibung (Zeichen)', 'Tamanho da descrição (caracteres)'),
+ 'There is no ticker to show.': ('Non c’è nessun ticker da mostrare. Controlla gli indirizzi dei feed.', 'No hay ningún ticker que mostrar. Revisa las direcciones de los feeds.', 'Aucun bandeau à afficher. Vérifiez les adresses des flux.', 'Es gibt keinen Ticker anzuzeigen. Prüfe die Feed-Adressen.', 'Não há nenhum ticker para mostrar. Verifique os endereços dos feeds.'),
+ # the block's keywords (block.json, context "block keyword")
+ 'feed': ('feed', 'feed', 'flux', 'Feed', 'feed'),
+ 'rss': ('rss', 'rss', 'rss', 'RSS', 'rss'),
+ 'atom': ('atom', 'atom', 'atom', 'Atom', 'atom'),
+ 'ticker': ('ticker', 'ticker', 'bandeau', 'Ticker', 'ticker'),
+ 'news': ('notizie', 'noticias', 'actualités', 'Nachrichten', 'notícias'),
+ 'marquee': ('scorrimento', 'desplazamiento', 'défilant', 'Laufband', 'rolagem'),
 }
 SKIP = ('https://github.com/', 'Giovambattista Fazioli', 'https://undolog.com')
 
@@ -96,7 +107,8 @@ def parse(pot):
         m = re.search(r'^msgid ((?:".*"\n?)+)', b, re.M)
         raw = m.group(1)
         msgid = ''.join(re.findall(r'"(.*)"', raw))
-        comments = [l for l in b.split('\n') if l.startswith('#')]
+        # the comments and the context (a block's title and keywords have one): kept as they are
+        comments = [l for l in b.split('\n') if l.startswith('#') or l.startswith('msgctxt ')]
         entries.append((comments, msgid))
     return head, entries
 

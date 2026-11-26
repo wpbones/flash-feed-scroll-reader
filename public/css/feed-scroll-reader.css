@@ -188,6 +188,11 @@
   }
 }
 
+/* In the block: the wrapper holds the margin, the colors and the alignment the editor gives it. */
+.wp-block-flash-feed-scroll-reader-ticker .ffsr {
+  margin: 0;
+}
+
 /* Reduced motion: no animation, the items are a plain wrapping list. */
 @media (prefers-reduced-motion: reduce) {
   .ffsr {

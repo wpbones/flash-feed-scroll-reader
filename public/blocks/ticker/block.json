@@ -1,0 +1,31 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "flash-feed-scroll-reader/ticker",
+  "title": "Feed Scroll Reader",
+  "category": "widgets",
+  "icon": "rss",
+  "description": "A horizontal scrolling ticker of items from one or more RSS/Atom feeds.",
+  "keywords": ["feed", "rss", "atom", "ticker", "news", "marquee"],
+  "textdomain": "flash-feed-scroll-reader",
+  "attributes": {
+    "feeds": { "type": "string" },
+    "maxItems": { "type": "integer" },
+    "speed": { "type": "integer" },
+    "description": { "type": "boolean" },
+    "descriptionLength": { "type": "integer" },
+    "height": { "type": "string" },
+    "target": { "type": "string" },
+    "label": { "type": "string" }
+  },
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "color": { "background": true, "text": true, "link": false },
+    "typography": { "fontSize": true },
+    "spacing": { "margin": true }
+  },
+  "editorScript": "file:./index.js",
+  "style": "feed-scroll-reader",
+  "viewScript": "feed-scroll-reader"
+}

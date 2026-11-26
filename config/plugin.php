@@ -152,6 +152,10 @@ return [
   |
   */
 
-  'providers' => [\NSFeedScrollReaderPlugin\Providers\TextDomain::class, \NSFeedScrollReaderPlugin\Admin\SettingsPage::class]
+  'providers' => [
+    \NSFeedScrollReaderPlugin\Providers\TextDomain::class,
+    \NSFeedScrollReaderPlugin\Blocks\TickerBlock::class,
+    \NSFeedScrollReaderPlugin\Admin\SettingsPage::class,
+  ]
 
 ];

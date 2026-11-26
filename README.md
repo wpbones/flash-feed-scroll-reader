@@ -34,11 +34,14 @@ Built on the [WPBones](https://wpbones.com) framework.
 - The theme's font; width, height, background and text color.
 - Feeds read with core `fetch_feed()` and cached for a lifetime you set.
 - A failing feed shows nothing to visitors; administrators get a note in the page source and on the settings page.
+- A block for the block editor, with a live preview and the feeds, speed, height and descriptions in the sidebar; colors, font size, margin and wide/full alignment are core block supports. A shortcode or the plugin's widget turns into it (Transform).
 - Shortcode, classic widget, and the 1.x template tags (`flashfeedscrollreader()`, `get_flashfeedscrollreader()`).
 - Your 1.x settings (`ffsr_settings`) are moved into the new ones once; the 1.x default feeds that no longer exist (`saidmade.com/feed`, `appleside.it/feed`) are replaced by the new default.
 - Translated into Italian, Spanish, French, German and Brazilian Portuguese.
 
 ### Usage
+
+Add the **Feed Scroll Reader** block (Widgets category) in the block editor. The same ticker, any other way:
 
 ```
 [feed_scroll_reader]
@@ -65,13 +68,14 @@ Attributes: `feed`, `max_items`, `speed` (px/s), `width`, `height`, `bgcolor`, `
 
 ## Development
 
-No build step: the front end is a hand-written stylesheet and script in `public/`, so there is no `yarn install`.
+No build step: the front end is a hand-written stylesheet and script in `public/`, and the block is `public/blocks/ticker/` (`block.json`, a hand-written `index.js` over the `wp.*` globals, and `index.asset.php`, whose `version` follows the plugin's), so there is no `yarn install`. The block renders on the server through the same code as the shortcode (`plugin/Blocks/TickerBlock.php`).
 
 ```sh
 composer install
 composer test        # PHPUnit + Brain Monkey, no WordPress needed
 tests/live/probe.sh <plugin folder> <WordPress folder>   # live probe in a local Playground (see the script header)
 composer make-pot    # languages/flash-feed-scroll-reader.pot (WP-CLI)
+python3 tests/live/mkpo.py   # the five .po/.mo from the .pot; then `wp i18n make-json languages --no-purge` for the editor's strings
 php bones            # the WP Bones console
 php bones deploy ../deploy/flash-feed-scroll-reader --wp --no-build
 ```

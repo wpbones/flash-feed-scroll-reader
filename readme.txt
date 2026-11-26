@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=TBPD4R78VDMCJ
 Tags: rss, feed, ticker, marquee, news
 Requires at least: 6.6
 Tested up to: 7.2
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 Requires PHP: 8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -18,11 +18,18 @@ Feed Scroll Reader shows the latest items of one or more feeds in a single line 
 * **Several feeds in one ticker.** Up to 5 RSS or Atom feeds, merged and sorted by date, newest first, with a limit on the number of items.
 * **Titles that are real links.** Optionally a description after each title, cut to a number of characters and ended with the text you choose, `[...]` by default. A separator between the items.
 * **Polite.** It stops while the pointer is over it or a link has the keyboard focus, has a pause button for touch screens, and it does not move at all for visitors whose system asks for reduced motion: they get a plain, wrapping list. It is a labelled region, its links are reachable by keyboard, and it never announces itself to screen readers on its own.
+* **A block, with a live preview.** Add "Feed Scroll Reader" in the block editor: the ticker is drawn in the editor as visitors will see it, and its feeds, speed and the rest are in the sidebar. Colors, font size, margin and wide or full alignment are the editor's own tools.
 * **Looks like your site.** The font is your theme's. Width, height, background color and text color are yours to set; by default the background is transparent and the text inherits its color.
 * **Fast.** Feeds are fetched with WordPress's own `fetch_feed()` and kept in its cache for as long as you say. Nothing is downloaded in the visitor's browser.
 * **Quiet when something fails.** A feed that cannot be read shows nothing to visitors. Administrators get a short note in an HTML comment in the page source, and the settings page shows the error.
 
-### Three ways to put it on a page
+### Four ways to put it on a page
+
+**Block**
+
+In the block editor, add the **Feed Scroll Reader** block (Widgets category, or type `/feed`). The editor shows the ticker itself, and the sidebar has its settings: the feed addresses (one per line, up to 5), the number of items, the speed in pixels per second, the height, the link target, a label for screen readers, and whether to show the descriptions and how long they are. A field you leave empty uses the defaults of Settings > Feed Scroll Reader, shown as a placeholder. Background and text color, font size, margin and wide or full alignment are the block's Styles and Settings, as in any other block.
+
+A `[feed_scroll_reader]` shortcode in a Shortcode block or a paragraph, and the plugin's widget in the block-based Widgets screen, can be turned into the block with the Transform button. Existing shortcodes, widgets and template tags keep working as they are.
 
 **Shortcode**
 
@@ -67,7 +74,7 @@ The markup is a `div.ffsr` holding a `ul.ffsr__track` of `li.ffsr__item`, each w
 1. Upload the entire content of the plugin archive to your `/wp-content/plugins/` directory, or install it from the Plugins screen.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 3. Open Settings > Feed Scroll Reader, add your feeds and see the preview.
-4. Put the ticker on a page with `[feed_scroll_reader]`, with the widget, or with `flashfeedscrollreader()` in your theme.
+4. Put the ticker on a page with the Feed Scroll Reader block, with `[feed_scroll_reader]`, with the widget, or with `flashfeedscrollreader()` in your theme.
 
 ## Screenshots
 
@@ -96,18 +103,27 @@ Yes, any public RSS or Atom feed. They are read by your server, so there is no c
 Visitors who ask their system for reduced motion get a still, wrapping list. Moving the pointer over the ticker, or tabbing to a link, stops it. To always show a still list, add `.ffsr { height: auto; } .ffsr__viewport { overflow: visible; } .ffsr__track { animation: none; padding-left: 0; white-space: normal; flex-wrap: wrap; }` to your CSS.
 
 = 7. Can I change the colors and the font? =
-Colors in the settings or with `bgcolor` and `color`. The font is your theme's; change it with your own CSS on `.ffsr`.
+In the block, with its Color and Typography settings. In the settings, or with `bgcolor` and `color` in a shortcode, for the others. The font is your theme's; change it with your own CSS on `.ffsr`. When a block has a color of its own, it wins over the color in the settings.
 
-= 8. Where can I find the documentation and the source? =
+= 8. The block shows no ticker in the editor, why? =
+Its feed could not be read: an administrator sees the reason where the preview would be. Check the address in the sidebar; it must be a feed, not the page of the site, and start with `http://` or `https://`. The same limits as everywhere apply: 5 feeds at most, and a feed that fails is not tried again for 15 minutes.
+
+= 9. Where can I find the documentation and the source? =
 On [GitHub](https://github.com/wpbones/flash-feed-scroll-reader).
 
-= 9. Can I request a new feature? =
+= 10. Can I request a new feature? =
 Yes! Please submit feature requests at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
 
-= 10. Can I report a bug? =
+= 11. Can I report a bug? =
 Yes! Please report bugs at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
 
 ## Changelog
+
+### 2.1.0
+
+* New: the **Feed Scroll Reader block**. The ticker is drawn in the editor as visitors will see it; the sidebar has the feeds, the number of items, the speed, the height, the link target, a label for screen readers and the descriptions. Colors, font size, margin and wide or full alignment are the editor's own tools. A shortcode or the plugin's widget turns into the block with Transform.
+* New: the editor's text is translated, in Italian, Spanish, French, German and Brazilian Portuguese.
+* Kept: the shortcode, the widget and the template tags work as before.
 
 ### 2.0.1
 
@@ -216,6 +232,10 @@ Yes! Please report bugs at [the support forum](https://wordpress.org/support/plu
 * First release
 
 ## Upgrade Notice
+
+### 2.1.0
+
+Adds a block for the block editor, with a live preview. The shortcode, the widget and the template tags are unchanged.
 
 ### 2.0.0
 

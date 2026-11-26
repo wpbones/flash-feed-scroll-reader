@@ -28,6 +28,8 @@ final class TickerTest extends MonkeyTestCase
     Functions\when('is_wp_error')->alias(fn($v) => $v instanceof WP_Error);
     Functions\when('add_filter')->justReturn(true);
     Functions\when('remove_filter')->justReturn(true);
+    Functions\when('wp_register_style')->justReturn(true);
+    Functions\when('wp_register_script')->justReturn(true);
     Functions\when('wp_enqueue_style')->justReturn(null);
     Functions\when('wp_enqueue_script')->justReturn(null);
   }

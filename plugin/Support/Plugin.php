@@ -67,14 +67,25 @@ final class Plugin
   }
 
   /**
+   * Registers the ticker's style and script under HANDLE, so the block can name them in block.json
+   * and enqueueFrontEnd() can enqueue them. Safe to call twice: a handle registers once.
+   */
+  public static function registerFrontEnd(): void
+  {
+    wp_register_style(self::HANDLE, self::url('public/css/feed-scroll-reader.css'), [], self::version());
+    wp_register_script(self::HANDLE, self::url('public/js/feed-scroll-reader.js'), [], self::version(), [
+      'in_footer' => true,
+      'strategy' => 'defer',
+    ]);
+  }
+
+  /**
    * Style and script of the ticker, once per page however many tickers it holds.
    */
   public static function enqueueFrontEnd(): void
   {
-    wp_enqueue_style(self::HANDLE, self::url('public/css/feed-scroll-reader.css'), [], self::version());
-    wp_enqueue_script(self::HANDLE, self::url('public/js/feed-scroll-reader.js'), [], self::version(), [
-      'in_footer' => true,
-      'strategy' => 'defer',
-    ]);
+    self::registerFrontEnd();
+    wp_enqueue_style(self::HANDLE);
+    wp_enqueue_script(self::HANDLE);
   }
 }
