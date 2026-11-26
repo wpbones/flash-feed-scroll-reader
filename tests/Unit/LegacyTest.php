@@ -141,7 +141,7 @@ final class LegacyTest extends TestCase
   {
     $new = Legacy::migrate(self::OLD_DEFAULTS);
 
-    $this->assertSame('http://www.saidmade.com/feed', $new['feeds']);
+    $this->assertArrayNotHasKey('feeds', $new, 'the only feed was the dead default: the new default stays');
     $this->assertSame(40, $new['speed']);
     $this->assertSame('100%', $new['width']);
     $this->assertSame('40', $new['height']);
@@ -152,10 +152,52 @@ final class LegacyTest extends TestCase
     $this->assertSame('#ffffff', $new['bgcolor']);
     $this->assertSame('_blank', $new['target']);
     $this->assertArrayNotHasKey('max_items', $new, 'the per-feed limit only counts with the aggregator');
-    $this->assertSame(
-      "http://www.saidmade.com/feed\nhttp://www.appleside.it/feed\nhttp://www.undolog.com/feed",
-      $new['legacy_feeds']
-    );
+    $this->assertSame("http://www.appleside.it/feed\nhttp://www.undolog.com/feed", $new['legacy_feeds']);
+  }
+
+  /**
+   * @return array<string, array{string}>
+   */
+  public static function deadDefaults(): array
+  {
+    return [
+      'the 1.x default' => ['http://www.saidmade.com/feed'],
+      'https' => ['https://www.saidmade.com/feed'],
+      'trailing slash' => ['http://www.saidmade.com/feed/'],
+      'no www, upper case' => ['HTTPS://SAIDMADE.COM/Feed/'],
+    ];
+  }
+
+  #[DataProvider('deadDefaults')]
+  public function test_the_dead_default_feed_as_the_only_feed_is_left_to_the_new_default(string $url): void
+  {
+    $old = self::OLD_DEFAULTS;
+    $old['ffsr_feedurl'] = $url;
+    $old['ffsr_useaggregator'] = '0';
+
+    $this->assertArrayNotHasKey('feeds', Legacy::migrate($old));
+  }
+
+  #[DataProvider('deadDefaults')]
+  public function test_the_dead_default_feed_among_others_is_dropped(string $url): void
+  {
+    $old = self::OLD_DEFAULTS;
+    $old['ffsr_useaggregator'] = '1';
+    $old['ffsr_aggregator'] = [$url, 'https://mine.test/feed'];
+    $old['ffsr_maxitems'] = '5';
+
+    $new = Legacy::migrate($old);
+
+    $this->assertSame('https://mine.test/feed', $new['feeds']);
+    $this->assertSame('https://mine.test/feed', $new['legacy_feeds']);
+    $this->assertSame(5, $new['max_items'], 'the limit counts the feeds that are left');
+  }
+
+  public function test_other_saidmade_addresses_are_kept(): void
+  {
+    $old = ['ffsr_feedurl' => 'http://www.saidmade.com/feed/rss2/'];
+
+    $this->assertSame('http://www.saidmade.com/feed/rss2/', Legacy::migrate($old)['feeds']);
   }
 
   public function test_the_aggregator_becomes_the_feed_list_and_the_limit_is_for_the_whole_ticker(): void
@@ -167,10 +209,10 @@ final class LegacyTest extends TestCase
     $new = Legacy::migrate($old);
 
     $this->assertSame(
-      "http://www.saidmade.com/feed\nhttp://www.appleside.it/feed\nhttp://www.undolog.com/feed",
+      "http://www.appleside.it/feed\nhttp://www.undolog.com/feed",
       $new['feeds']
     );
-    $this->assertSame(15, $new['max_items']);
+    $this->assertSame(10, $new['max_items']);
   }
 
   public function test_the_aggregator_flag_without_a_list_falls_back_to_the_single_feed(): void
@@ -181,7 +223,7 @@ final class LegacyTest extends TestCase
 
     $new = Legacy::migrate($old);
 
-    $this->assertSame('http://www.saidmade.com/feed', $new['feeds']);
+    $this->assertArrayNotHasKey('feeds', $new);
     $this->assertArrayNotHasKey('legacy_feeds', $new);
   }
 

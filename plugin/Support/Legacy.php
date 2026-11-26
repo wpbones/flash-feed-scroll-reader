@@ -17,6 +17,12 @@ final class Legacy
   public const OPTION = 'ffsr_settings';
 
   /**
+   * The feed 1.x shipped as its default, on a domain that is gone: http or https, with or without
+   * www and a trailing slash.
+   */
+  private const DEAD_DEFAULT_FEED = '#^https?://(?:www\.)?saidmade\.com/feed/?$#i';
+
+  /**
    * Arguments of the 1.x tag that only made sense for the Flash movie: they are accepted and
    * dropped without a word.
    */
@@ -129,14 +135,15 @@ final class Legacy
     $aggregator = [];
 
     if (isset($old['ffsr_aggregator']) && is_array($old['ffsr_aggregator'])) {
-      $aggregator = Args::feeds($old['ffsr_aggregator']);
+      $aggregator = self::withoutDeadDefault(Args::feeds($old['ffsr_aggregator']));
     }
 
-    $single = Args::feeds((string) ($old['ffsr_feedurl'] ?? ''));
+    $single = self::withoutDeadDefault(Args::feeds((string) ($old['ffsr_feedurl'] ?? '')));
     $useAggregator = Args::bool($old['ffsr_useaggregator'] ?? false) && $aggregator !== [];
 
     $feeds = $useAggregator ? $aggregator : $single;
 
+    // Nothing left (the dead default was the only feed): the new default feed stays.
     if ($feeds !== []) {
       $new['feeds'] = implode("\n", $feeds);
     }
@@ -180,5 +187,15 @@ final class Legacy
     }
 
     return $new;
+  }
+
+  /**
+   * @param string[] $feeds
+   *
+   * @return string[]
+   */
+  private static function withoutDeadDefault(array $feeds): array
+  {
+    return array_values(array_filter($feeds, static fn(string $url): bool => preg_match(self::DEAD_DEFAULT_FEED, $url) !== 1));
   }
 }
