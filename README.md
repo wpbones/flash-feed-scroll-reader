@@ -6,6 +6,7 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 [![WordPress Plugin Required PHP Version](https://img.shields.io/wordpress/plugin/required-php/flash-feed-scroll-reader)](https://wordpress.org/plugins/flash-feed-scroll-reader/)
 [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/flash-feed-scroll-reader)](https://wordpress.org/plugins/flash-feed-scroll-reader/)
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![Try it in WordPress Playground](https://img.shields.io/badge/Try%20it-WordPress%20Playground-3858e9?logo=wordpress&logoColor=white)](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/wpbones/flash-feed-scroll-reader/main/assets/blueprints/blueprint.json)
 
 <div align="center">
   <p><img src="https://raw.githubusercontent.com/wpbones/.github/main/glancecard/flash-feed-scroll-reader.svg" width="880" alt="Feed Scroll Reader at a glance, refreshed daily: commits, releases, stars, issues and pull requests, a year of commit activity, the weekly rhythm, languages, latest commits and releases, contributors" /><br>
