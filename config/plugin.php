@@ -152,6 +152,6 @@ return [
   |
   */
 
-  'providers' => [\NSFeedScrollReaderPlugin\Admin\SettingsPage::class]
+  'providers' => [\NSFeedScrollReaderPlugin\Providers\TextDomain::class, \NSFeedScrollReaderPlugin\Admin\SettingsPage::class]
 
 ];

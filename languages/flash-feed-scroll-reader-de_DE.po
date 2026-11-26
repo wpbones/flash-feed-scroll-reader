@@ -1,0 +1,299 @@
+# Copyright (C) 2026 Giovambattista Fazioli
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feed Scroll Reader 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flash-feed-scroll-reader\n"
+"Last-Translator: Giovambattista Fazioli\n"
+"Language-Team: German\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-26T08:33:30+00:00\n"
+"PO-Revision-Date: 2026-11-26 09:00+0000\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: flash-feed-scroll-reader\n"
+"Language: de_DE\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#. Plugin Name of the plugin
+#: wp-flashfeedscrollreader.php
+#: plugin/Admin/SettingsPage.php:44
+#: plugin/Admin/SettingsPage.php:45
+#: plugin/Widgets/TickerWidget.php:39
+#: resources/views/settings/index.php:21
+msgid "Feed Scroll Reader"
+msgstr "Feed Scroll Reader"
+
+#. Plugin URI of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "https://wordpress.org/plugins/flash-feed-scroll-reader/"
+msgstr ""
+
+#. Description of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds. Plain HTML and CSS, no Flash. Formerly Flash Feed Scroll Reader."
+msgstr "Ein horizontal laufendes Ticker-Band mit den Einträgen eines oder mehrerer RSS-/Atom-Feeds. Nur HTML und CSS, kein Flash. Früher Flash Feed Scroll Reader."
+
+#. Author of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "Giovambattista Fazioli"
+msgstr ""
+
+#. Author URI of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "http://undolog.com"
+msgstr ""
+
+#: plugin/Admin/SettingsPage.php:61
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: plugin/Admin/SettingsPage.php:97
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Du hast keine Berechtigung, auf diese Seite zuzugreifen."
+
+#: plugin/Admin/SettingsPage.php:126
+msgid "Sorry, you are not allowed to do that."
+msgstr "Du hast keine Berechtigung dafür."
+
+#: plugin/Ticker.php:50
+msgid "No feed is set: add one in Settings > Feed Scroll Reader."
+msgstr "Es ist kein Feed eingetragen: Füge unter Einstellungen > Feed Scroll Reader einen hinzu."
+
+#: plugin/Ticker.php:59
+msgid "The feeds returned no items."
+msgstr "Die Feeds haben keine Einträge geliefert."
+
+#: plugin/Ticker.php:66
+#: resources/views/settings/index.php:147
+msgid "Latest items"
+msgstr "Neueste Einträge"
+
+#: plugin/Widgets/TickerWidget.php:40
+msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds."
+msgstr "Ein horizontal laufendes Ticker-Band mit den Einträgen eines oder mehrerer RSS-/Atom-Feeds."
+
+#: resources/views/settings/index.php:24
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+#: resources/views/settings/index.php:29
+msgid "These lines are not web addresses and were not saved:"
+msgstr "Diese Zeilen sind keine Webadressen und wurden nicht gespeichert:"
+
+#: resources/views/settings/index.php:38
+msgid "A horizontal scrolling ticker of the latest items of one or more feeds. These are the defaults of every ticker; a shortcode, a widget or a template tag can change any of them for itself."
+msgstr "Ein horizontal laufendes Ticker-Band mit den neuesten Einträgen eines oder mehrerer Feeds. Das sind die Standardwerte jedes Tickers; ein Shortcode, ein Widget oder ein Template-Tag kann jeden davon nur für sich ändern."
+
+#: resources/views/settings/index.php:44
+msgid "Feeds"
+msgstr "Feeds"
+
+#: resources/views/settings/index.php:47
+msgid "Feed addresses"
+msgstr "Feed-Adressen"
+
+#: resources/views/settings/index.php:50
+msgid "One RSS or Atom address per line. Several feeds are merged, newest first."
+msgstr "Eine RSS- oder Atom-Adresse pro Zeile. Mehrere Feeds werden zusammengeführt, die neuesten zuerst."
+
+#: resources/views/settings/index.php:54
+msgid "Items"
+msgstr "Einträge"
+
+#: resources/views/settings/index.php:57
+msgid "How many items the ticker shows in all, from 1 to 100."
+msgstr "Wie viele Einträge das Ticker-Band insgesamt zeigt, von 1 bis 100."
+
+#: resources/views/settings/index.php:61
+msgid "Refresh every"
+msgstr "Aktualisieren alle"
+
+#: resources/views/settings/index.php:64
+msgid "minutes"
+msgstr "Minuten"
+
+#: resources/views/settings/index.php:65
+msgid "A feed is downloaded again after this time; between two downloads the saved copy is used."
+msgstr "Ein Feed wird nach dieser Zeit erneut geladen; dazwischen wird die gespeicherte Kopie verwendet."
+
+#: resources/views/settings/index.php:70
+msgid "Look"
+msgstr "Aussehen"
+
+#: resources/views/settings/index.php:73
+msgid "Width"
+msgstr "Breite"
+
+#: resources/views/settings/index.php:76
+msgid "A number with a unit: 100%, 480px, 30em. A number alone is pixels."
+msgstr "Eine Zahl mit Einheit: 100%, 480px, 30em. Eine Zahl allein bedeutet Pixel."
+
+#: resources/views/settings/index.php:80
+msgid "Height"
+msgstr "Höhe"
+
+#: resources/views/settings/index.php:83
+msgid "Like the width, or auto. The default follows the size of the text."
+msgstr "Wie die Breite, oder auto. Der Standard folgt der Textgröße."
+
+#: resources/views/settings/index.php:87
+msgid "Background color"
+msgstr "Hintergrundfarbe"
+
+#: resources/views/settings/index.php:90
+msgid "Empty: transparent, the page shows through."
+msgstr "Leer: transparent, die Seite scheint durch."
+
+#: resources/views/settings/index.php:94
+msgid "Text color"
+msgstr "Textfarbe"
+
+#: resources/views/settings/index.php:97
+msgid "Empty: the color of the surrounding text. The font is always the theme’s."
+msgstr "Leer: die Farbe des umgebenden Textes. Die Schrift ist immer die des Themes."
+
+#: resources/views/settings/index.php:102
+msgid "Behavior"
+msgstr "Verhalten"
+
+#: resources/views/settings/index.php:105
+msgid "Speed"
+msgstr "Geschwindigkeit"
+
+#: resources/views/settings/index.php:108
+msgid "pixels per second"
+msgstr "Pixel pro Sekunde"
+
+#: resources/views/settings/index.php:109
+msgid "The ticker stops while the pointer is over it or a link has the keyboard focus, and does not move at all for visitors who ask their system for reduced motion."
+msgstr "Das Ticker-Band hält an, solange der Mauszeiger darüber steht oder ein Link den Tastaturfokus hat, und bewegt sich gar nicht für Besucher, die ihr System um reduzierte Bewegung bitten."
+
+#: resources/views/settings/index.php:113
+msgid "Separator"
+msgstr "Trennzeichen"
+
+#: resources/views/settings/index.php:116
+msgid "Plain text between two items. Empty: none."
+msgstr "Einfacher Text zwischen zwei Einträgen. Leer: keines."
+
+#: resources/views/settings/index.php:120
+msgid "Descriptions"
+msgstr "Beschreibungen"
+
+#: resources/views/settings/index.php:124
+msgid "Show the description after each title"
+msgstr "Beschreibung nach jedem Titel anzeigen"
+
+#: resources/views/settings/index.php:127
+msgid "Cut it to"
+msgstr "Kürzen auf"
+
+#: resources/views/settings/index.php:129
+msgid "characters, and end it with"
+msgstr "Zeichen und beenden mit"
+
+#: resources/views/settings/index.php:130
+msgid "Text at the end of a cut description"
+msgstr "Text am Ende einer gekürzten Beschreibung"
+
+#: resources/views/settings/index.php:136
+msgid "Open links"
+msgstr "Links öffnen"
+
+#: resources/views/settings/index.php:139
+msgid "In a new tab"
+msgstr "In einem neuen Tab"
+
+#: resources/views/settings/index.php:140
+msgid "In the same tab"
+msgstr "Im selben Tab"
+
+#: resources/views/settings/index.php:145
+msgid "Label for screen readers"
+msgstr "Bezeichnung für Screenreader"
+
+#: resources/views/settings/index.php:148
+msgid "The name of the ticker for assistive technology."
+msgstr "Der Name des Tickers für Hilfstechnologien."
+
+#: resources/views/settings/index.php:156
+msgid "Preview"
+msgstr "Vorschau"
+
+#: resources/views/settings/index.php:162
+msgid "The saved defaults, as a visitor sees them."
+msgstr "Die gespeicherten Standardwerte, so wie ein Besucher sie sieht."
+
+#: resources/views/settings/index.php:165
+msgid "Use it"
+msgstr "Verwendung"
+
+#: resources/views/settings/index.php:168
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: resources/views/settings/index.php:172
+msgid "Attributes: feed, max_items, speed, width, height, bgcolor, color, description, description_length, suffix, separator, target, cache, label. Each one is optional and falls back to the defaults above."
+msgstr "Attribute: feed, max_items, speed, width, height, bgcolor, color, description, description_length, suffix, separator, target, cache, label. Jedes ist optional und fällt auf die obigen Standardwerte zurück."
+
+#: resources/views/settings/index.php:176
+msgid "Widget"
+msgstr "Widget"
+
+#: resources/views/settings/index.php:177
+msgid "Appearance > Widgets > Feed Scroll Reader."
+msgstr "Design > Widgets > Feed Scroll Reader."
+
+#: resources/views/settings/index.php:180
+msgid "Template tag"
+msgstr "Template-Tag"
+
+#: resources/views/settings/index.php:185
+msgid "The same two functions as before version 2. The old arguments still work; stylesheet, wmode and the other ones that only made sense for the Flash movie are ignored."
+msgstr "Dieselben zwei Funktionen wie vor Version 2. Die alten Argumente funktionieren weiter; stylesheet, wmode und die anderen, die nur für den Flash-Film Sinn hatten, werden ignoriert."
+
+#: resources/views/widgets/form.php:15
+msgid "Title:"
+msgstr "Titel:"
+
+#: resources/views/widgets/form.php:22
+msgid "Feed URLs, one per line:"
+msgstr "Feed-Adressen, eine pro Zeile:"
+
+#: resources/views/widgets/form.php:26
+msgid "Empty: the feeds of Settings > Feed Scroll Reader."
+msgstr "Leer: die Feeds aus Einstellungen > Feed Scroll Reader."
+
+#: resources/views/widgets/form.php:29
+msgid "Items:"
+msgstr "Einträge:"
+
+#: resources/views/widgets/form.php:34
+msgid "Speed (px/s):"
+msgstr "Geschwindigkeit (px/s):"
+
+#: resources/views/widgets/form.php:41
+msgid "Height:"
+msgstr "Höhe:"
+
+#: resources/views/widgets/form.php:46
+msgid "Descriptions:"
+msgstr "Beschreibungen:"
+
+#: resources/views/widgets/form.php:49
+msgid "Default"
+msgstr "Standard"
+
+#: resources/views/widgets/form.php:50
+msgid "Show"
+msgstr "Anzeigen"
+
+#: resources/views/widgets/form.php:51
+msgid "Hide"
+msgstr "Ausblenden"
+
+#: resources/views/widgets/form.php:54
+msgid "Empty fields use the defaults of Settings > Feed Scroll Reader."
+msgstr "Leere Felder verwenden die Standardwerte aus Einstellungen > Feed Scroll Reader."

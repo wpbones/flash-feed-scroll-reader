@@ -99,7 +99,7 @@ $id = static fn(string $key): string => esc_attr('ffsr-' . $key);
       </tr>
     </table>
 
-    <h2 class="title"><?php esc_html_e('Behaviour', 'flash-feed-scroll-reader'); ?></h2>
+    <h2 class="title"><?php esc_html_e('Behavior', 'flash-feed-scroll-reader'); ?></h2>
     <table class="form-table" role="presentation">
       <tr>
         <th scope="row"><label for="<?php echo $id('speed'); ?>"><?php esc_html_e('Speed', 'flash-feed-scroll-reader'); ?></label></th>

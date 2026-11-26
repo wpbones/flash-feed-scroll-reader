@@ -1,0 +1,299 @@
+# Copyright (C) 2026 Giovambattista Fazioli
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Feed Scroll Reader 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flash-feed-scroll-reader\n"
+"Last-Translator: Giovambattista Fazioli\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-26T08:33:30+00:00\n"
+"PO-Revision-Date: 2026-11-26 09:00+0000\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: flash-feed-scroll-reader\n"
+"Language: fr_FR\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+
+#. Plugin Name of the plugin
+#: wp-flashfeedscrollreader.php
+#: plugin/Admin/SettingsPage.php:44
+#: plugin/Admin/SettingsPage.php:45
+#: plugin/Widgets/TickerWidget.php:39
+#: resources/views/settings/index.php:21
+msgid "Feed Scroll Reader"
+msgstr "Feed Scroll Reader"
+
+#. Plugin URI of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "https://wordpress.org/plugins/flash-feed-scroll-reader/"
+msgstr ""
+
+#. Description of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds. Plain HTML and CSS, no Flash. Formerly Flash Feed Scroll Reader."
+msgstr "Un bandeau défilant horizontal avec les éléments d’un ou plusieurs flux RSS/Atom. HTML et CSS uniquement, sans Flash. Anciennement Flash Feed Scroll Reader."
+
+#. Author of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "Giovambattista Fazioli"
+msgstr ""
+
+#. Author URI of the plugin
+#: wp-flashfeedscrollreader.php
+msgid "http://undolog.com"
+msgstr ""
+
+#: plugin/Admin/SettingsPage.php:61
+msgid "Settings"
+msgstr "Réglages"
+
+#: plugin/Admin/SettingsPage.php:97
+msgid "Sorry, you are not allowed to access this page."
+msgstr "Désolé, vous n’avez pas l’autorisation d’accéder à cette page."
+
+#: plugin/Admin/SettingsPage.php:126
+msgid "Sorry, you are not allowed to do that."
+msgstr "Désolé, vous n’avez pas l’autorisation de faire cela."
+
+#: plugin/Ticker.php:50
+msgid "No feed is set: add one in Settings > Feed Scroll Reader."
+msgstr "Aucun flux n’est défini : ajoutez-en un dans Réglages > Feed Scroll Reader."
+
+#: plugin/Ticker.php:59
+msgid "The feeds returned no items."
+msgstr "Les flux n’ont renvoyé aucun élément."
+
+#: plugin/Ticker.php:66
+#: resources/views/settings/index.php:147
+msgid "Latest items"
+msgstr "Derniers éléments"
+
+#: plugin/Widgets/TickerWidget.php:40
+msgid "A horizontal scrolling ticker of items from one or more RSS/Atom feeds."
+msgstr "Un bandeau défilant horizontal avec les éléments d’un ou plusieurs flux RSS/Atom."
+
+#: resources/views/settings/index.php:24
+msgid "Settings saved."
+msgstr "Réglages enregistrés."
+
+#: resources/views/settings/index.php:29
+msgid "These lines are not web addresses and were not saved:"
+msgstr "Ces lignes ne sont pas des adresses web et n’ont pas été enregistrées :"
+
+#: resources/views/settings/index.php:38
+msgid "A horizontal scrolling ticker of the latest items of one or more feeds. These are the defaults of every ticker; a shortcode, a widget or a template tag can change any of them for itself."
+msgstr "Un bandeau défilant horizontal avec les derniers éléments d’un ou plusieurs flux. Ce sont les valeurs par défaut de chaque bandeau ; un shortcode, un widget ou une template tag peut en changer pour lui seul."
+
+#: resources/views/settings/index.php:44
+msgid "Feeds"
+msgstr "Flux"
+
+#: resources/views/settings/index.php:47
+msgid "Feed addresses"
+msgstr "Adresses des flux"
+
+#: resources/views/settings/index.php:50
+msgid "One RSS or Atom address per line. Several feeds are merged, newest first."
+msgstr "Une adresse RSS ou Atom par ligne. Plusieurs flux sont fusionnés, du plus récent au plus ancien."
+
+#: resources/views/settings/index.php:54
+msgid "Items"
+msgstr "Éléments"
+
+#: resources/views/settings/index.php:57
+msgid "How many items the ticker shows in all, from 1 to 100."
+msgstr "Combien d’éléments le bandeau affiche en tout, de 1 à 100."
+
+#: resources/views/settings/index.php:61
+msgid "Refresh every"
+msgstr "Actualiser toutes les"
+
+#: resources/views/settings/index.php:64
+msgid "minutes"
+msgstr "minutes"
+
+#: resources/views/settings/index.php:65
+msgid "A feed is downloaded again after this time; between two downloads the saved copy is used."
+msgstr "Un flux est téléchargé de nouveau après ce délai ; entre deux téléchargements, la copie enregistrée est utilisée."
+
+#: resources/views/settings/index.php:70
+msgid "Look"
+msgstr "Apparence"
+
+#: resources/views/settings/index.php:73
+msgid "Width"
+msgstr "Largeur"
+
+#: resources/views/settings/index.php:76
+msgid "A number with a unit: 100%, 480px, 30em. A number alone is pixels."
+msgstr "Un nombre avec une unité : 100%, 480px, 30em. Un nombre seul est en pixels."
+
+#: resources/views/settings/index.php:80
+msgid "Height"
+msgstr "Hauteur"
+
+#: resources/views/settings/index.php:83
+msgid "Like the width, or auto. The default follows the size of the text."
+msgstr "Comme la largeur, ou auto. Par défaut, elle suit la taille du texte."
+
+#: resources/views/settings/index.php:87
+msgid "Background color"
+msgstr "Couleur de fond"
+
+#: resources/views/settings/index.php:90
+msgid "Empty: transparent, the page shows through."
+msgstr "Vide : transparent, la page se voit à travers."
+
+#: resources/views/settings/index.php:94
+msgid "Text color"
+msgstr "Couleur du texte"
+
+#: resources/views/settings/index.php:97
+msgid "Empty: the color of the surrounding text. The font is always the theme’s."
+msgstr "Vide : la couleur du texte environnant. La police est toujours celle du thème."
+
+#: resources/views/settings/index.php:102
+msgid "Behavior"
+msgstr "Comportement"
+
+#: resources/views/settings/index.php:105
+msgid "Speed"
+msgstr "Vitesse"
+
+#: resources/views/settings/index.php:108
+msgid "pixels per second"
+msgstr "pixels par seconde"
+
+#: resources/views/settings/index.php:109
+msgid "The ticker stops while the pointer is over it or a link has the keyboard focus, and does not move at all for visitors who ask their system for reduced motion."
+msgstr "Le bandeau s’arrête tant que le pointeur le survole ou qu’un lien a le focus clavier, et ne bouge pas du tout pour les visiteurs qui demandent à leur système de réduire les animations."
+
+#: resources/views/settings/index.php:113
+msgid "Separator"
+msgstr "Séparateur"
+
+#: resources/views/settings/index.php:116
+msgid "Plain text between two items. Empty: none."
+msgstr "Texte simple entre deux éléments. Vide : aucun."
+
+#: resources/views/settings/index.php:120
+msgid "Descriptions"
+msgstr "Descriptions"
+
+#: resources/views/settings/index.php:124
+msgid "Show the description after each title"
+msgstr "Afficher la description après chaque titre"
+
+#: resources/views/settings/index.php:127
+msgid "Cut it to"
+msgstr "Couper à"
+
+#: resources/views/settings/index.php:129
+msgid "characters, and end it with"
+msgstr "caractères, et terminer par"
+
+#: resources/views/settings/index.php:130
+msgid "Text at the end of a cut description"
+msgstr "Texte à la fin d’une description coupée"
+
+#: resources/views/settings/index.php:136
+msgid "Open links"
+msgstr "Ouvrir les liens"
+
+#: resources/views/settings/index.php:139
+msgid "In a new tab"
+msgstr "Dans un nouvel onglet"
+
+#: resources/views/settings/index.php:140
+msgid "In the same tab"
+msgstr "Dans le même onglet"
+
+#: resources/views/settings/index.php:145
+msgid "Label for screen readers"
+msgstr "Libellé pour les lecteurs d’écran"
+
+#: resources/views/settings/index.php:148
+msgid "The name of the ticker for assistive technology."
+msgstr "Le nom du bandeau pour les technologies d’assistance."
+
+#: resources/views/settings/index.php:156
+msgid "Preview"
+msgstr "Aperçu"
+
+#: resources/views/settings/index.php:162
+msgid "The saved defaults, as a visitor sees them."
+msgstr "Les valeurs par défaut enregistrées, telles qu’un visiteur les voit."
+
+#: resources/views/settings/index.php:165
+msgid "Use it"
+msgstr "Utilisation"
+
+#: resources/views/settings/index.php:168
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: resources/views/settings/index.php:172
+msgid "Attributes: feed, max_items, speed, width, height, bgcolor, color, description, description_length, suffix, separator, target, cache, label. Each one is optional and falls back to the defaults above."
+msgstr "Attributs : feed, max_items, speed, width, height, bgcolor, color, description, description_length, suffix, separator, target, cache, label. Chacun est facultatif et reprend les valeurs par défaut ci-dessus."
+
+#: resources/views/settings/index.php:176
+msgid "Widget"
+msgstr "Widget"
+
+#: resources/views/settings/index.php:177
+msgid "Appearance > Widgets > Feed Scroll Reader."
+msgstr "Apparence > Widgets > Feed Scroll Reader."
+
+#: resources/views/settings/index.php:180
+msgid "Template tag"
+msgstr "Template tag"
+
+#: resources/views/settings/index.php:185
+msgid "The same two functions as before version 2. The old arguments still work; stylesheet, wmode and the other ones that only made sense for the Flash movie are ignored."
+msgstr "Les deux mêmes fonctions qu’avant la version 2. Les anciens arguments fonctionnent toujours ; stylesheet, wmode et les autres, qui n’avaient de sens que pour l’animation Flash, sont ignorés."
+
+#: resources/views/widgets/form.php:15
+msgid "Title:"
+msgstr "Titre :"
+
+#: resources/views/widgets/form.php:22
+msgid "Feed URLs, one per line:"
+msgstr "Adresses des flux, une par ligne :"
+
+#: resources/views/widgets/form.php:26
+msgid "Empty: the feeds of Settings > Feed Scroll Reader."
+msgstr "Vide : les flux de Réglages > Feed Scroll Reader."
+
+#: resources/views/widgets/form.php:29
+msgid "Items:"
+msgstr "Éléments :"
+
+#: resources/views/widgets/form.php:34
+msgid "Speed (px/s):"
+msgstr "Vitesse (px/s) :"
+
+#: resources/views/widgets/form.php:41
+msgid "Height:"
+msgstr "Hauteur :"
+
+#: resources/views/widgets/form.php:46
+msgid "Descriptions:"
+msgstr "Descriptions :"
+
+#: resources/views/widgets/form.php:49
+msgid "Default"
+msgstr "Par défaut"
+
+#: resources/views/widgets/form.php:50
+msgid "Show"
+msgstr "Afficher"
+
+#: resources/views/widgets/form.php:51
+msgid "Hide"
+msgstr "Masquer"
+
+#: resources/views/widgets/form.php:54
+msgid "Empty fields use the defaults of Settings > Feed Scroll Reader."
+msgstr "Les champs vides utilisent les valeurs par défaut de Réglages > Feed Scroll Reader."
