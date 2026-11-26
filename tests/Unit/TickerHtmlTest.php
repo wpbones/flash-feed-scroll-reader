@@ -53,6 +53,24 @@ final class TickerHtmlTest extends MonkeyTestCase
     $this->assertStringNotContainsString('tabindex', $html, 'links are reachable as links, with no tabindex tricks');
   }
 
+  public function test_a_pause_button_is_there_hidden_until_the_script_shows_it(): void
+  {
+    $html = TickerHtml::render(self::args(['pause_label' => 'Pause "scrolling"']), self::items(), 1);
+
+    $this->assertStringContainsString(
+      '<button type="button" class="ffsr__toggle" aria-pressed="false" hidden aria-label="Pause &quot;scrolling&quot;" title="Pause &quot;scrolling&quot;"></button>',
+      $html
+    );
+    $this->assertSame(1, substr_count($html, '<button'));
+    // inside the region, after the list: the box keeps its size
+    $this->assertMatchesRegularExpression('#</ul></div><button[^>]*></button></div>$#', $html);
+  }
+
+  public function test_no_label_no_button(): void
+  {
+    $this->assertStringNotContainsString('<button', TickerHtml::render(self::args(), self::items(), 1));
+  }
+
   public function test_the_separator_goes_between_items_only_and_is_hidden_from_assistive_technology(): void
   {
     $html = TickerHtml::render(self::args(), self::items(), 1);

@@ -1,8 +1,9 @@
 /**
  * Feed Scroll Reader: a horizontal ticker, in CSS.
  *
- * The track starts one viewport to the right (padding-left: 100%) and moves left by its own width,
- * so it enters, crosses and leaves. The script only measures it to set --ffsr-duration; without
+ * The track starts one viewport to the right (padding-inline-start: 100%) and moves left by its own width,
+ * so it enters, crosses and leaves. In a right-to-left ticker (:dir(rtl)) the padding is on the right
+ * and the track moves right, so it enters from the left. The script only measures it to set --ffsr-duration; without
  * the script the duration printed by the server is used.
  *
  * Look: --ffsr-width, --ffsr-height, --ffsr-bg and --ffsr-fg are set per ticker in its style
@@ -37,7 +38,8 @@
 }
 
 .ffsr__viewport {
-  width: 100%;
+  flex: 1 1 auto;
+  min-width: 0;
   overflow: hidden;
 }
 
@@ -45,7 +47,8 @@
   display: inline-flex;
   align-items: center;
   margin: 0;
-  padding: 0 0 0 100%;
+  padding: 0;
+  padding-inline-start: 100%;
   list-style: none;
   white-space: nowrap;
   animation: ffsr-scroll var(--ffsr-duration) linear infinite;
@@ -80,20 +83,93 @@
   margin-inline: 1em;
 }
 
-/* The pointer is over it, or a link has the focus: stop. */
+/*
+ * Stop while the pointer is over it, while something has the keyboard focus (:focus-visible, not
+ * :focus-within: a mouse click on a link focuses it and would freeze the ticker for good), and when
+ * the visitor pressed the pause button.
+ */
 .ffsr:hover .ffsr__track,
-.ffsr:focus-within .ffsr__track {
+.ffsr:has(:focus-visible) .ffsr__track,
+.ffsr--paused .ffsr__track {
   animation-play-state: paused;
 }
 
-/* Keyboard focus: the script lets the visitor scroll to the link instead (see the script). */
+/* Keyboard focus on a link: the script lets the visitor scroll to it instead (see the script). */
 .ffsr--static .ffsr__viewport {
   overflow-x: auto;
 }
 
 .ffsr--static .ffsr__track {
-  padding-left: 0;
+  padding-inline-start: 0;
   animation: none;
+}
+
+/* The pause button: inside the box, after the viewport, so the ticker's size does not change. */
+.ffsr__toggle {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 2em;
+  height: 2em;
+  min-width: 24px;
+  min-height: 24px;
+  margin: 0 0.25em;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.75;
+}
+
+.ffsr__toggle[hidden] {
+  display: none;
+}
+
+.ffsr__toggle:hover,
+.ffsr__toggle:focus-visible {
+  opacity: 1;
+}
+
+.ffsr__toggle:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 1px;
+}
+
+/* Two bars: pause. A triangle once pressed: play. */
+.ffsr__toggle::before {
+  content: '';
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  vertical-align: middle;
+  background: linear-gradient(to right, currentColor 35%, transparent 35% 65%, currentColor 65%);
+}
+
+.ffsr__toggle[aria-pressed='true']::before {
+  background: currentColor;
+  clip-path: polygon(15% 0, 100% 50%, 15% 100%);
+}
+
+/* Right to left: the track enters from the left and moves right. */
+.ffsr:dir(rtl) .ffsr__track {
+  animation-name: ffsr-scroll-rtl;
+}
+
+.ffsr--static:dir(rtl) .ffsr__track {
+  animation: none;
+}
+
+@keyframes ffsr-scroll-rtl {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
 }
 
 @keyframes ffsr-scroll {
@@ -117,9 +193,14 @@
     overflow: visible;
   }
 
-  .ffsr__track {
+  .ffsr__toggle {
+    display: none;
+  }
+
+  .ffsr__track,
+  .ffsr:dir(rtl) .ffsr__track {
     flex-wrap: wrap;
-    padding-left: 0;
+    padding-inline-start: 0;
     animation: none;
     white-space: normal;
     will-change: auto;

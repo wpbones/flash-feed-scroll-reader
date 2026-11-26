@@ -109,7 +109,28 @@ final class TickerHtml
       (int) $args['speed'] .
       '"><div class="ffsr__viewport"><ul class="ffsr__track" role="list">' .
       $html .
-      '</ul></div></div>';
+      '</ul></div>' .
+      self::toggle($args['pause_label'] ?? '') .
+      '</div>';
+  }
+
+  /**
+   * The pause button (WCAG 2.2.2: moving content that lasts more than five seconds needs a way to
+   * stop it, and hover and focus are no help on a touch screen). It is hidden until the script
+   * shows it, because without the script it could do nothing; reduced motion hides it in CSS.
+   * The label does not change, `aria-pressed` says whether it is paused.
+   */
+  public static function toggle(string $label): string
+  {
+    if ($label === '') {
+      return '';
+    }
+
+    return '<button type="button" class="ffsr__toggle" aria-pressed="false" hidden aria-label="' .
+      esc_attr($label) .
+      '" title="' .
+      esc_attr($label) .
+      '"></button>';
   }
 
   /**
