@@ -27,6 +27,21 @@ function ffsr_uninstall_site(): void
   }
 
   delete_option('ffsr_settings');
+
+  // The plugin's own transients: the failed-feed marks and the settings page's one-time notice.
+  // Not core's shared `feed_*` transients: other plugins read feeds through them too.
+  global $wpdb;
+
+  foreach (['ffsr_down_', 'ffsr_rejected_'] as $prefix) {
+    $names = $wpdb->get_col(
+      $wpdb->prepare("SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $wpdb->esc_like('_transient_' . $prefix) . '%')
+    );
+
+    foreach ($names as $name) {
+      // Also removes its timeout row.
+      delete_transient(substr($name, strlen('_transient_')));
+    }
+  }
 }
 
 if (is_multisite()) {
