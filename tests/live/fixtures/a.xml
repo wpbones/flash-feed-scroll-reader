@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel><title>Feed A</title><link>https://feeds.test/a</link><description>A</description>
+<item><title>Alpha newest &amp; best</title><link>https://feeds.test/a/1</link><pubDate>Mon, 23 Nov 2026 10:00:00 +0000</pubDate><description>&lt;p&gt;The quick brown fox jumps over the lazy dog and keeps running far away.&lt;/p&gt;</description></item>
+<item><title>Alpha oldest</title><link>https://feeds.test/a/2</link><pubDate>Mon, 16 Nov 2026 10:00:00 +0000</pubDate><description>Plain old text</description></item>
+<item><title>Evil link</title><link>javascript:alert(1)</link><pubDate>Mon, 23 Nov 2026 11:00:00 +0000</pubDate><description>x</description></item>
+</channel></rss>

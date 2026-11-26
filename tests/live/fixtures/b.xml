@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Feed B</title><id>urn:b</id><updated>2026-11-20T00:00:00Z</updated>
+<entry><title>Bravo middle</title><link href="https://feeds.test/b/1"/><id>urn:b1</id><updated>2026-11-20T09:00:00Z</updated><summary>Atom summary with &lt;b&gt;markup&lt;/b&gt;</summary></entry>
+<entry><title>&lt;script&gt;alert(2)&lt;/script&gt;Bravo script</title><link href="https://feeds.test/b/2"/><id>urn:b2</id><updated>2026-11-01T09:00:00Z</updated><summary>s</summary></entry>
+</feed>

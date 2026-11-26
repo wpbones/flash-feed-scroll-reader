@@ -69,6 +69,7 @@ No build step: the front end is a hand-written stylesheet and script in `public/
 ```sh
 composer install
 composer test        # PHPUnit + Brain Monkey, no WordPress needed
+tests/live/probe.sh <plugin folder> <WordPress folder>   # live probe in a local Playground (see the script header)
 composer make-pot    # languages/flash-feed-scroll-reader.pot (WP-CLI)
 php bones            # the WP Bones console
 php bones deploy ../deploy/flash-feed-scroll-reader --wp --no-build
