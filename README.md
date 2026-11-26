@@ -21,15 +21,15 @@ Built on the [WPBones](https://wpbones.com) framework.
 
 ## Features
 
-- Several feeds in one ticker, merged and sorted by date, with a limit on the items.
+- Up to 5 feeds in one ticker, merged and sorted by date, with a limit on the items; a feed that fails is skipped for 15 minutes.
 - Titles are real links; optional descriptions cut to a length and ended with a text of your choice; a separator.
-- Pauses on hover and on keyboard focus; a still, wrapping list for visitors who ask for reduced motion.
+- Pauses on hover and on keyboard focus, with a pause button for touch screens; a still, wrapping list for visitors who ask for reduced motion.
 - A labelled region, keyboard reachable, no live announcements.
 - The theme's font; width, height, background and text color.
 - Feeds read with core `fetch_feed()` and cached for a lifetime you set.
 - A failing feed shows nothing to visitors; administrators get a note in the page source and on the settings page.
 - Shortcode, classic widget, and the 1.x template tags (`flashfeedscrollreader()`, `get_flashfeedscrollreader()`).
-- Your 1.x settings (`ffsr_settings`) are moved into the new ones once.
+- Your 1.x settings (`ffsr_settings`) are moved into the new ones once; the 1.x default feeds that no longer exist (`saidmade.com/feed`, `appleside.it/feed`) are replaced by the new default.
 - Translated into Italian, Spanish, French, German and Brazilian Portuguese.
 
 ### Usage

@@ -15,9 +15,9 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 
 Feed Scroll Reader shows the latest items of one or more feeds in a single line that scrolls sideways, like a news ticker. It was called **Flash Feed Scroll Reader** until version 1.2.0, and it drew the line with an Adobe Flash movie. Browsers dropped Flash in 2021, so that version shows nothing today. Version 2.0.0 is a rewrite: the ticker is now HTML and CSS, with a little JavaScript only to measure it. **Flash is gone.** The name changed with it; the plugin's address on WordPress.org and its folder are still `flash-feed-scroll-reader`.
 
-* **Several feeds in one ticker.** RSS and Atom, merged and sorted by date, newest first, with a limit on the number of items.
+* **Several feeds in one ticker.** Up to 5 RSS or Atom feeds, merged and sorted by date, newest first, with a limit on the number of items.
 * **Titles that are real links.** Optionally a description after each title, cut to a number of characters and ended with the text you choose, `[...]` by default. A separator between the items.
-* **Polite.** It stops while the pointer is over it or a link has the keyboard focus, and it does not move at all for visitors whose system asks for reduced motion: they get a plain, wrapping list. It is a labelled region, its links are reachable by keyboard, and it never announces itself to screen readers on its own.
+* **Polite.** It stops while the pointer is over it or a link has the keyboard focus, has a pause button for touch screens, and it does not move at all for visitors whose system asks for reduced motion: they get a plain, wrapping list. It is a labelled region, its links are reachable by keyboard, and it never announces itself to screen readers on its own.
 * **Looks like your site.** The font is your theme's. Width, height, background color and text color are yours to set; by default the background is transparent and the text inherits its color.
 * **Fast.** Feeds are fetched with WordPress's own `fetch_feed()` and kept in its cache for as long as you say. Nothing is downloaded in the visitor's browser.
 * **Quiet when something fails.** A feed that cannot be read shows nothing to visitors. Administrators get a short note in an HTML comment in the page source, and the settings page shows the error.
@@ -30,7 +30,7 @@ Feed Scroll Reader shows the latest items of one or more feeds in a single line 
 
 `[feed_scroll_reader feed="https://example.com/feed https://example.org/feed" speed="60" description="yes" description_length="80" height="3em" bgcolor="#112233" color="#ffffff"]`
 
-Attributes: `feed` (one or more addresses, separated by spaces or commas), `max_items`, `speed` (pixels per second), `width`, `height`, `bgcolor`, `color`, `description` (`yes` or `no`), `description_length`, `suffix`, `separator`, `target` (`_blank` or `_self`), `cache` (minutes) and `label` (the name of the ticker for screen readers).
+Attributes: `feed` (one to five addresses, separated by spaces or commas), `max_items`, `speed` (pixels per second), `width`, `height`, `bgcolor`, `color`, `description` (`yes` or `no`), `description_length`, `suffix`, `separator`, `target` (`_blank` or `_self`), `cache` (minutes) and `label` (the name of the ticker for screen readers).
 
 **Widget**
 
@@ -54,6 +54,7 @@ Your site keeps working, and the ticker is back. On the first request after the 
 
 * **Template tag:** `flashfeedscrollreader()` and `get_flashfeedscrollreader()` work as before. The tag's `scrollspeed` was a delay in milliseconds for the Flash movie; it becomes a speed in pixels per second (25 ms is 40 px/s) and is kept between 10 and 400.
 * **Settings:** the single feed, or the aggregator's list when you used it, becomes the feed list; width, height, background color, separator, description, its length and its ending, and the link target are carried over. The old "max items per feed" becomes a limit for the whole ticker (per feed times the number of feeds).
+* **Old default feeds:** the feeds 1.x shipped as defaults that no longer answer (`saidmade.com/feed`, `appleside.it/feed`) are not carried over: if one was your only feed, the new default feed is used instead.
 * **Gone:** the Flash movie, the style sheet address, the window mode and the gateway scripts. A style sheet you wrote for the movie cannot be used: Flash's HTML engine is not CSS. Style the ticker with the classes below, or with your theme.
 * **Minimum:** PHP 8.1 and WordPress 6.6.
 
@@ -87,7 +88,7 @@ Because there is no Flash in it any more. The WordPress.org address cannot chang
 Open Settings > Feed Scroll Reader: the preview shows the error WordPress got when it tried to read each feed. The address must be a feed, not the page of the site; it must start with `http://` or `https://`; and your server must be able to reach it. Visitors never see an error. An administrator who is logged in sees the reason in an HTML comment near the place where the ticker should be (view the page source).
 
 = 4. How often is a feed downloaded? =
-Every 30 minutes by default, and only when a visitor opens a page that holds a ticker. Change it in the settings or with the `cache` attribute.
+Every 30 minutes by default, and only when a visitor opens a page that holds a ticker. Change it in the settings or with the `cache` attribute. A ticker reads at most 5 feeds, and a feed that fails is not tried again for 15 minutes, so a dead address does not slow the page down.
 
 = 5. Can it show feeds from other sites? =
 Yes, any public RSS or Atom feed. They are read by your server, so there is no cross-domain problem.
@@ -114,8 +115,8 @@ Yes! Please report bugs at [the support forum](https://wordpress.org/support/plu
 **A rewrite. The plugin is now Feed Scroll Reader; it was Flash Feed Scroll Reader, and Flash is gone.**
 
 * New: the ticker is HTML and CSS, with a small vanilla script that only measures it. No Flash movie, no gateway scripts, no bundled SimplePie: feeds are read with WordPress's own `fetch_feed()`.
-* New: several feeds merged by date, a limit on the items, a cache lifetime you set, a separator, optional descriptions cut to a length.
-* New: pauses on hover and on keyboard focus; honors "reduced motion" with a still list; labelled region, real links, no live announcements.
+* New: up to 5 feeds merged by date, a feed that fails is skipped for 15 minutes, a limit on the items, a cache lifetime you set, a separator, optional descriptions cut to a length.
+* New: pauses on hover and on keyboard focus, with a pause button for touch screens; honors "reduced motion" with a still list; labelled region, real links, no live announcements.
 * New: width, height, background color and text color; the font is the theme's.
 * New: the shortcode `[feed_scroll_reader]` and a classic widget.
 * New: Settings > Feed Scroll Reader, with a preview and the errors of the feeds.
