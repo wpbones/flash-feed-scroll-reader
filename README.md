@@ -7,7 +7,17 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/flash-feed-scroll-reader)](https://wordpress.org/plugins/flash-feed-scroll-reader/)
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
-> Formerly **Flash Feed Scroll Reader**. Version 2.0.0 is a rewrite: the Adobe Flash movie is gone and the ticker is HTML and CSS. The WordPress.org address and the folder are still `flash-feed-scroll-reader`.
+## Overview
+
+Feed Scroll Reader shows the latest items of one or more feeds in one line that scrolls sideways, like a news ticker. It was **Flash Feed Scroll Reader** until 1.2.0 and drew the line with an Adobe Flash movie; 2.0.0 is a rewrite in HTML and CSS, and Flash is gone. The WordPress.org address and the folder are still `flash-feed-scroll-reader`.
+
+Built on the [WPBones](https://wpbones.com) framework.
+
+## Links
+
+- [WordPress.org Plugin Page](https://wordpress.org/plugins/flash-feed-scroll-reader/)
+- [Support Forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/)
+- [Changelog](readme.txt) (the `## Changelog` section)
 
 ## Features
 
@@ -18,10 +28,11 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 - The theme's font; width, height, background and text color.
 - Feeds read with core `fetch_feed()` and cached for a lifetime you set.
 - A failing feed shows nothing to visitors; administrators get a note in the page source and on the settings page.
-- Shortcode, classic widget, and the 1.x template tags.
+- Shortcode, classic widget, and the 1.x template tags (`flashfeedscrollreader()`, `get_flashfeedscrollreader()`).
+- Your 1.x settings (`ffsr_settings`) are moved into the new ones once.
 - Translated into Italian, Spanish, French, German and Brazilian Portuguese.
 
-## Usage
+### Usage
 
 ```
 [feed_scroll_reader]
@@ -33,27 +44,31 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 <?php echo get_flashfeedscrollreader( 'width=100%&height=40&feedurl=https://example.com/feed' ); ?>
 ```
 
-Attributes: `feed`, `max_items`, `speed` (px/s), `width`, `height`, `bgcolor`, `color`, `description`, `description_length`, `suffix`, `separator`, `target`, `cache` (minutes), `label`. The defaults live in Settings > Feed Scroll Reader. The 1.x argument names (`feedurl`, `scrollspeed`, `stringcut`, `stringcutend`, `useaggregator`) still work; `stylesheet`, `wmode` and the other Flash-only ones are ignored.
-
-## Coming from 1.x
-
-The template tags work as before and the old `ffsr_settings` option is moved into the new settings once, on the first request after the update. `scrollspeed` (milliseconds per step for Flash) becomes a speed in pixels per second. A style sheet written for the Flash movie cannot be reused. See [`readme.txt`](readme.txt) for the details.
+Attributes: `feed`, `max_items`, `speed` (px/s), `width`, `height`, `bgcolor`, `color`, `description`, `description_length`, `suffix`, `separator`, `target`, `cache` (minutes), `label`. Defaults: Settings > Feed Scroll Reader. The 1.x names (`feedurl`, `scrollspeed`, `stringcut`, `stringcutend`, `useaggregator`) still work; `stylesheet`, `wmode` and the other Flash-only ones are ignored.
 
 ## Requirements
 
-PHP 8.1, WordPress 6.6, tested up to 7.2.
+- PHP 8.1 or later
+- WordPress 6.6 or later (tested up to 7.2)
+
+## Installation
+
+1. Upload the entire content of the plugin archive to your `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Open Settings > Feed Scroll Reader, add your feeds, and put `[feed_scroll_reader]` on a page.
 
 ## Development
 
-Built on the [WP Bones](https://wpbones.com) framework 3.4. No build step: the front end is a hand-written stylesheet and script in `public/`.
+No build step: the front end is a hand-written stylesheet and script in `public/`, so there is no `yarn install`.
 
 ```sh
 composer install
 composer test        # PHPUnit + Brain Monkey, no WordPress needed
 composer make-pot    # languages/flash-feed-scroll-reader.pot (WP-CLI)
+php bones            # the WP Bones console
 php bones deploy ../deploy/flash-feed-scroll-reader --wp --no-build
 ```
 
 ## License
 
-GPL-2.0-or-later.
+GPLv2 or later. See [LICENSE](LICENSE).

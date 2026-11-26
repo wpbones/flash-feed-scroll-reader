@@ -46,6 +46,8 @@ The two functions of the old versions are still there:
 
 A ticker downloads the feeds you give it from the servers that publish them, using WordPress's HTTP API, and keeps a copy for the time you set. Until you change the setting, the feed is the WordPress News feed, `https://wordpress.org/news/feed/` ([privacy policy](https://wordpress.org/about/privacy/)). Nothing else is sent anywhere, and nothing about your visitors is collected.
 
+Documentation and source code: [github.com/wpbones/flash-feed-scroll-reader](https://github.com/wpbones/flash-feed-scroll-reader).
+
 ### If you used version 1.x
 
 Your site keeps working, and the ticker is back. On the first request after the update the plugin moves your old settings into the new ones, once; the old `ffsr_settings` option is left where it is until you delete the plugin.
@@ -68,9 +70,10 @@ The markup is a `div.ffsr` holding a `ul.ffsr__track` of `li.ffsr__item`, each w
 
 ## Screenshots
 
-1. The settings page with its live preview.
-2. A ticker with descriptions on a dark background.
-3. The widget form in the Widgets screen.
+1. Settings > Feed Scroll Reader: the feed list, the look and the behavior, with the live preview under the form.
+2. A ticker on the front end: titles as links, separated by a bullet, on the theme's own font.
+3. The same ticker with descriptions on a dark background (background and text color set).
+4. The widget form in Appearance > Widgets.
 
 ## FAQ
 
@@ -95,8 +98,14 @@ Visitors who ask their system for reduced motion get a still, wrapping list. Mov
 = 7. Can I change the colors and the font? =
 Colors in the settings or with `bgcolor` and `color`. The font is your theme's; change it with your own CSS on `.ffsr`.
 
-= 8. Where do I report a bug or ask for something? =
-In [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
+= 8. Where can I find the documentation and the source? =
+On [GitHub](https://github.com/wpbones/flash-feed-scroll-reader).
+
+= 9. Can I request a new feature? =
+Yes! Please submit feature requests at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
+
+= 10. Can I report a bug? =
+Yes! Please report bugs at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
 
 ## Changelog
 
