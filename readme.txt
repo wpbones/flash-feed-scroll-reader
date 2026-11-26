@@ -15,6 +15,8 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 
 Feed Scroll Reader shows the latest items of one or more feeds in a single line that scrolls sideways, like a news ticker. It was called **Flash Feed Scroll Reader** until version 1.2.0, and it drew the line with an Adobe Flash movie. Browsers dropped Flash in 2021, so that version shows nothing today. Version 2.0.0 is a rewrite: the ticker is now HTML and CSS, with a little JavaScript only to measure it. **Flash is gone.** The name changed with it; the plugin's address on WordPress.org and its folder are still `flash-feed-scroll-reader`.
 
+https://www.youtube.com/watch?v=QZ_ExTqI1-8
+
 * **Several feeds in one ticker.** Up to 5 RSS or Atom feeds, merged and sorted by date, newest first, with a limit on the number of items.
 * **Titles that are real links.** Optionally a description after each title, cut to a number of characters and ended with the text you choose, `[...]` by default. A separator between the items.
 * **Polite.** It stops while the pointer is over it or a link has the keyboard focus, has a pause button for touch screens, and it does not move at all for visitors whose system asks for reduced motion: they get a plain, wrapping list. It is a labelled region, its links are reachable by keyboard, and it never announces itself to screen readers on its own.

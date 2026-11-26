@@ -21,6 +21,7 @@ Built on the [WPBones](https://wpbones.com) framework.
 
 ## Links
 
+- [Feed Scroll Reader in 15 seconds](https://www.youtube.com/watch?v=QZ_ExTqI1-8) (video)
 - [WordPress.org Plugin Page](https://wordpress.org/plugins/flash-feed-scroll-reader/)
 - [Support Forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/)
 - [Changelog](readme.txt) (the `## Changelog` section)
