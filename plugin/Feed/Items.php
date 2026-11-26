@@ -18,7 +18,9 @@ final class Items
 {
   /**
    * Several feeds in one list: newest first, the same link only once, at most $max items.
-   * An item with no date goes after the dated ones, in the order the feeds gave it.
+   * An item with no date goes after the dated ones, in the order the feeds gave it. An item whose
+   * link is not http(s) (a javascript: URL, no link at all) is dropped first, so it does not take
+   * one of the $max places and leave the ticker short.
    *
    * @param array<int, array<int, array>> $lists One list of items per feed.
    *
@@ -34,7 +36,7 @@ final class Items
       foreach ($items as $item) {
         $link = (string) ($item['link'] ?? '');
 
-        if ($link === '' || isset($seen[$link])) {
+        if (preg_match('#^https?://#i', $link) !== 1 || isset($seen[$link])) {
           continue;
         }
 

@@ -70,6 +70,20 @@ final class ItemsTest extends MonkeyTestCase
     $this->assertSame([['title' => 't', 'link' => 'https://a/1', 'description' => '', 'timestamp' => 90]], $merged);
   }
 
+  public function test_an_item_that_cannot_be_linked_does_not_take_a_place_of_the_limit(): void
+  {
+    $items = [
+      self::item('javascript:alert(1)', 900),
+      self::item('ftp://x/1', 800),
+      self::item('HTTPS://a/1', 100),
+      self::item('https://a/2', 50),
+    ];
+
+    $merged = Items::merge([$items], 2);
+
+    $this->assertSame(['HTTPS://a/1', 'https://a/2'], array_column($merged, 'link'));
+  }
+
   public function test_no_feeds_no_items(): void
   {
     $this->assertSame([], Items::merge([], 5));
