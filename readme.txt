@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=TBPD4R78VDMCJ
 Tags: rss, feed, ticker, marquee, news
 Requires at least: 6.6
 Tested up to: 7.2
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Requires PHP: 8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -108,6 +108,10 @@ Yes! Please submit feature requests at [the support forum](https://wordpress.org
 Yes! Please report bugs at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
 
 ## Changelog
+
+### 2.0.1
+
+* Fixed: in a layout sized by its content, such as Twenty Twenty-One's footer widget columns, the ticker widened its column to the length of all its items and ran off the page. It now stays as wide as the space it is given.
 
 ### 2.0.0
 

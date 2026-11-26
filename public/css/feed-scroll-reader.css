@@ -22,6 +22,12 @@
   align-items: center;
   width: var(--ffsr-width);
   max-width: 100%;
+  /* The track is one long line that never wraps. Without this, its length is the ticker's
+     min-content width, and a grid or flex parent sized by its content (Twenty Twenty-One's footer
+     widget columns) widens to fit it: the ticker runs off the page. Inline-size containment keeps
+     the ticker as wide as its parent gives it. */
+  contain: inline-size;
+  min-width: 0;
   height: var(--ffsr-height);
   margin: 0 0 1em;
   overflow: hidden;
