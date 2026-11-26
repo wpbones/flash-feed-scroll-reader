@@ -1,68 +1,23 @@
 <?php
 
 /**
- * This file is included by "bones" command. You'll find
+ * This file is included by the "bones deploy" command.
  *
- * $this Instance of bones command console
- * $path Destination path
- *
- * You'll able to:
- *
- * Delete a file
- *   @unlink("{$path}/myfile");
- *
- * Delete a folder
- *   $console->deleteDirectory("{$path}/docs");
- *
- *
+ * PHPUnit and Brain Monkey (require-dev) are left out by bones itself: it runs
+ * `composer install --no-dev` in the deployed copy and never touches this working tree. The tests
+ * (`/tests`) and `phpunit.xml.dist` are left out by the deploy's default list.
  */
 
 /**
- * Fired when the deploy command is started
+ * Filter the list of the folder to skip for the deploy version.
  *
- * @param object $console Instance of WPBones Console
- * @param string $path Destination path
- */
-add_action('wpbones_console_deploy_start', function ($console, $path) {
-  // Do something
-}, 10, 2);
-
-/**
- * Fired before building assets
- *
- * @param object $console Instance of WPBones Console
- * @param string $path Destination path
- */
-add_action('wpbones_console_deploy_before_build_assets', function ($console, $path) {
-  // Do something
-}, 10, 2);
-
-/**
- * Fired after building assets
- *
- * @param object $console Instance of WPBones Console
- * @param string $path Destination path
- */
-add_action('wpbones_console_deploy_after_build_assets', function ($console, $path) {
-  // Do something
-}, 10, 2);
-
-/**
- * Filter the list of the folder to skip for the deploy version
+ * `/assets` holds the WordPress.org Live Preview blueprint (and, one day, the banner, icon and
+ * screenshots): WordPress.org takes them from the SVN `assets` folder, not from the plugin.
+ * bones matches a skip entry against the exact path relative to the plugin root.
  *
  * @param array $folders List of folders to skip
  * @return array List of folders to skip
  */
 add_filter('wpbones_console_deploy_skip_folders', function ($folders) {
-  return $folders;
+  return array_merge($folders, ['/assets', '/README.md', '/phpunit.xml.dist']);
 });
-
-/**
- * Fired when the deploy command is completed
- *
- * @param object $console Instance of WPBones Console
- * @param string $path Destination path
- */
-add_action('wpbones_console_deploy_completed', function ($console, $path) {
-  // Do something
-}, 10, 2);
