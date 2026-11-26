@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/donate/?hosted_button_id=TBPD4R78VDMCJ
 Tags: rss, feed, ticker, marquee, news
 Requires at least: 6.6
 Tested up to: 7.2
-Stable tag: 2.1.0
+Stable tag: 2.1.1
 Requires PHP: 8.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -119,6 +119,10 @@ Yes! Please submit feature requests at [the support forum](https://wordpress.org
 Yes! Please report bugs at [the support forum](https://wordpress.org/support/plugin/flash-feed-scroll-reader/).
 
 ## Changelog
+
+### 2.1.1
+
+* Translations load through WP Bones 3.4.1, which reads the plugin's `Text Domain` and `Domain Path`. The `Domain Path` header now has the leading slash WordPress documents. A string missing from a language pack is still taken from the catalogue bundled with the plugin.
 
 ### 2.1.0
 

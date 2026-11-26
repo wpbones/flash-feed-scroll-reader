@@ -9,14 +9,15 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Loads the plugin's translations under its own text domain, which is its WordPress.org slug (so a
- * language pack from translate.wordpress.org matches). WP Bones loads a text domain made from the
- * Plugin Name it was renamed with (`wp-flashfeedscrollreader`), which is not the slug: this provider
- * is what loads the slug's.
+ * Fills the gaps of a language pack with the catalogue bundled in languages/.
  *
- * Order: the language pack in WP_LANG_DIR/plugins first, because it is newer than the plugin and
- * is what translators keep up to date; then the catalogue bundled in languages/, for what the pack
- * lacks or when there is no pack. The files are loaded by their path and locale.
+ * The text domain is the plugin's WordPress.org slug, and WP Bones (3.4.1 and later) and WordPress
+ * itself register where its catalogues are. WordPress then loads ONE file for the locale, just in
+ * time: the language pack in WP_LANG_DIR/plugins if there is one, else the bundled one. A pack from
+ * translate.wordpress.org holds only the approved strings, so a string it lacks would stay English
+ * although the bundled catalogue translates it. This provider loads the pack first, because it is
+ * newer than the plugin and is what translators keep up to date, then the bundled catalogue, for what
+ * the pack lacks or when there is no pack. The files are loaded by their path and locale.
  */
 class TextDomain extends ServiceProvider
 {
