@@ -81,6 +81,7 @@ The markup is a `div.ffsr` holding a `ul.ffsr__track` of `li.ffsr__item`, each w
 1. Settings > Feed Scroll Reader: the feeds, the look and the behavior every ticker starts from.
 2. A ticker on the front end: titles as links, separated by a bullet, in the theme's own font, with the pause button at the end.
 3. The same ticker with descriptions on a dark background (background and text color set).
+4. The Feed Scroll Reader block in the editor: a live preview of the ticker, and its settings in the sidebar.
 
 ## FAQ
 
