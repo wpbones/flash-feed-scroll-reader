@@ -7,6 +7,11 @@ A horizontal scrolling ticker of the latest items of one or more RSS/Atom feeds.
 [![WordPress Plugin Tested WP Version](https://img.shields.io/wordpress/plugin/tested/flash-feed-scroll-reader)](https://wordpress.org/plugins/flash-feed-scroll-reader/)
 [![License](https://img.shields.io/badge/license-GPLv2-blue.svg)](https://www.gnu.org/licenses/gpl-2.0.html)
 
+<div align="center">
+  <p><img src="https://raw.githubusercontent.com/wpbones/.github/main/glancecard/flash-feed-scroll-reader.svg" width="880" alt="Feed Scroll Reader at a glance, refreshed daily: commits, releases, stars, issues and pull requests, a year of commit activity, the weekly rhythm, languages, latest commits and releases, contributors" /><br>
+  <sub>Made with <a href="https://github.com/gfazioli/glancecard">glancecard</a> · refreshed daily</sub></p>
+</div>
+
 ## Overview
 
 Feed Scroll Reader shows the latest items of one or more feeds in one line that scrolls sideways, like a news ticker. It was **Flash Feed Scroll Reader** until 1.2.0 and drew the line with an Adobe Flash movie; 2.0.0 is a rewrite in HTML and CSS, and Flash is gone. The WordPress.org address and the folder are still `flash-feed-scroll-reader`.
